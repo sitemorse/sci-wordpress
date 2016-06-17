@@ -1,0 +1,11 @@
+#sciloading {height:90px; width:90px;
+  position: absolute; top: 25%; left: 40%;
+  margin-left: 45px; margin-top: 45px;
+  background:url("images/ajax-loader.gif") no-repeat;}
+#darkcover{position:fixed; top:0; left:0;
+  background-repeat:no-repeat;
+  background-position:99% 40px;
+  background-color:rgb(25,25,25); z-index:9999;
+  background-color:rgba(25,25,25,0.7); height:100%; width:100%;}
+#sitemorse_preview_controls{float:right; margin-top:55px; width:100px;}
+#sitemorse_preview_controls img {display:block; margin-bottom: 12px; cursor: pointer;}
