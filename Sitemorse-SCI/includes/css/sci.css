@@ -87,33 +87,73 @@
     background-color: #ee736d;
 }
 
-#sciConfirm{position: absolute; top: 25%; left: 30%;
-  border-radius:12px; padding-bottom: 18px; text-align:center;
+#sciConfirm{
+  position: absolute;
+	top: 25%;
+	left: 50%;
+	width: 764px;
+	margin-left: -382px;
+  border-radius:12px;
+	padding-bottom: 1px;
+	text-align:left;
+	font-size: 14px;
   background-color:white;}
 #sciConfirm h2{color:white; text-align:left;
   background:#889DB8 url("images/icon/sitemorse-blue.png") no-repeat 9px;
-  padding:16px 16px 16px 46px; margin-top:0;
+  padding:16px 16px 16px 46px; margin-top:0; margin-bottom:0;
   border-top-left-radius:12px;
   border-top-right-radius:12px;}
 #sciConfirm ul, #sciConfirm p{margin:18px;}
 #sciConfirm ul li, #sciConfirm p{font-weight: bold;}
 #sciConfirm button {
   border: none;
-  margin: 8px 18px;
-  padding: 3px 9px;
+  margin: 8px;
+  padding: 9px;
   color: white;
   border-radius: 6px;
   cursor: pointer;
 }
-#sciConfirmPublish {
+#sciConfirm .prioritiesTable{
+  width:100%;
+  border-collapse:collapse;
+  border-left:2px solid #F0F0F0;
+  border-right:2px solid #F0F0F0;
+	color:#555555;
+}
+#sciConfirm .prioritiesTable th, #sciConfirm .prioritiesTable td{
+  border:1px solid #DDDDDD;
+	padding: 4px 6px;
+}
+#sciConfirm .prioritiesTable th{
+  background-color:#F0F0F0;
+	line-height: 1.8em;
+}
+#sciConfirm #sciConfirmPublish {
   background: #F26D6B;
+	margin-right:492px;
+}
+.sciConfirmPriorityIcon{
+	display:inline-block;
+	color:white;
+	background-color:#F26D6B;
+	border-radius:50%;
+	height:18px;
+	width:17px;
+	text-align: center;
+	line-height: 1.3em;
+	font-weight: normal;
+	border: 2px solid white;
+	margin-right: 6px;
+}
+.sciConfirmPriorityIcon::after{
+	content:"!";
 }
 #sciConfirmCancel {
   background: #3BC997;
 }
 .sciMinorCancel{
   float:right;
-  margin-top: -80px;
+  margin-top: -64px;
   margin-right: -14px;
   padding: 0;
   cursor: pointer;

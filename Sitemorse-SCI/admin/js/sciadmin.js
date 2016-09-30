@@ -204,10 +204,37 @@ function publishSCI(results) {
 			jQuery("<button id='sciConfirmCancel'>Fix Issues</Button>"
 				).appendTo("#sciConfirm");
 		} else {
-			jQuery("<p>Priority issues:</p>"
-				).appendTo("#sciConfirm");
-			jQuery("<ul><li>" + priorities.slice(0, 10).join("</li><li>")
-				+ "</li></ul>").appendTo("#sciConfirm");
+			var table = "<table class='prioritiesTable'>" +
+			"<colgroup>" +
+			"  <col style='width:88px;'>" +
+			"  <col style='width:266px;'>" +
+			"  <col style=''>" +
+			"</colgroup>" +
+			"<tr>" +
+			"  <th colspan='3'><span class='sciConfirmPriorityIcon'></span>" +
+			"  You have priority issues. See below for details.</th>" +
+			"</tr>" +
+			"<tr><th>No. of Issues</th><th>Type of Issue</th><th>Issue / Number</th></tr>";
+			var p = results.result.priorities;
+			for (var key in p) {
+				if (!p[key].total) {
+					continue;
+				}
+				var diags = p[key].diagnostics;
+				for (var diag in diags) {
+					table += "<tr><td style='text-align:center;'>" + diags[diag].total + "</td>" +
+						"<td>" + diags[diag].category + "</td>" +
+						"<td>" + diags[diag].title + "</td></tr>";
+				}
+			}
+			var p = results.result.telnumbers;
+			for (var num in p) {
+				table += "<tr><td style='text-align:center;'>" + p[num].occurrences + "</td>" +
+					"<td>" + p[num].message + " number</td>" +
+					"<td>" + num + "</td></tr>";
+			}
+			table += "</table>";
+			jQuery(table).appendTo("#sciConfirm");
 			jQuery("<button id='sciConfirmPublish'>Publish Anyway</Button>"
 				).click(function() {
 					jQuery("#sciConfirm").remove();

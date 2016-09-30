@@ -1,7 +1,8 @@
-#sciloading {height:90px; width:90px;
-  position: absolute; top: 25%; left: 40%;
-  margin-left: 45px; margin-top: 45px;
-  background:url("images/ajax-loader.gif") no-repeat;}
+#sciloading {height:210px; width:840px;
+  position: absolute; top: 25%; left: 50%;
+  margin-left:-420px; margin-top: 45px;
+  border-radius:12px;
+  background:url("images/full-loading.gif") no-repeat;}
 #darkcover{position:fixed; top:0; left:0;
   background-repeat:no-repeat;
   background-position:99% 40px;
