@@ -96,10 +96,16 @@ class Sitemorse_SCI_Admin {
 		wp_enqueue_script('jquery-ui-accordion');
 		wp_register_script("sitemorse-scicommon", plugins_url() .
 			"/Sitemorse-SCI/includes/js/scicommon.js", array( 'jquery' ));
+		wp_enqueue_script('sitemorse-scicommon');
+		wp_register_script( "sitemorse-sciiframe", plugins_url() .
+			"/Sitemorse-SCI/includes/js/sciiframe.js", array( 'jquery' ));
+		wp_enqueue_script('sitemorse-sciiframe');
 		wp_register_script( "sitemorse-sciadmin", plugins_url() .
 			"/Sitemorse-SCI/admin/js/sciadmin.js", array( 'jquery' ));
-		wp_enqueue_script('sitemorse-scicommon');
 		wp_enqueue_script('sitemorse-sciadmin');
+		wp_register_script( "sitemorse-scisettings", plugins_url() .
+			"/Sitemorse-SCI/admin/js/scisettings.js", array( 'jquery' ));
+		wp_enqueue_script('sitemorse-scisettings');
 
 	}
 

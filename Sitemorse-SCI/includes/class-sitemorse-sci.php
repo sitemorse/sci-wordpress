@@ -585,7 +585,9 @@ add_action("edit_form_after_title", function() {
 function get_sci_admin_url($postID, $current_url=null) {
 	if (!$current_url) {
 		$current_url = get_option( 'home' ) . $_SERVER["REQUEST_URI"];
-		$current_url .= (strlen($_SERVER["QUERY_STRING"]) ? "&" : "?") . "sitemorseSCI";
+		$hide_menu = (strlen($_SERVER["QUERY_STRING"]) ? "&" : "?")
+		  . "sitemorseSCI";
+		$current_url .= $hide_menu;
 	}
 	$postID_url = "";
 	if ($postID) {
@@ -604,19 +606,15 @@ function sci_admin_redirect() {
 		$admin_url = get_sci_admin_url(get_the_ID());
 		echo <<<CONTENT
 <script type='text/javascript'>
-if (parent.top.jQuery("#sci-post-preview").length &&
-	!jQuery("#sitemorse_prevent_redirect").length) {
-	window.location.replace('${admin_url}');
-}
+	iframe_preview_redirect('${admin_url}');
 </script>
 CONTENT;
 	}
 	if (is_404()) {
 		echo <<<CONTENT
 <script type='text/javascript'>
-if (parent.top.jQuery("#sci-post-preview").length &&
-	!jQuery("#sitemorse_prevent_redirect").length) {
-	parent.top.showSCIFrame();
+if (parent.top.jQuery("#sci-post-preview").length) {
+	parent.top.showSCI();
 }
 </script>
 CONTENT;
@@ -1147,7 +1145,6 @@ setParentSCI("error");
 		sm_save_meta($_GET["postID"], $priorities, $url);
 	}
 	echo <<<CONTENT
-<div id='sitemorse_prevent_redirect'></div><!--Block circular redirect-->
 <script type="text/javascript">
 setParentSCI($results);
 </script>
@@ -1163,9 +1160,7 @@ CONTENT;
 		}
 	} else {
 		echo '<script type="text/javascript">' .
-'	jQuery(function(){' .
-'	window.location.replace("' . $url . '");' .
-'	});' .
+'	sci_finished("' . $url . '");' .
 '</script>';
 	}
 	if ($error) {

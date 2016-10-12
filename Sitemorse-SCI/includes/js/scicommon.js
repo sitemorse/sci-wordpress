@@ -21,25 +21,10 @@
 
 var sitemorseSCI = {"intoIframe": false, //if the sci is loaded into an iframe
 	"preventPublish": false,
+	"showSCI": true,
 	"baseImgPath": ""};
 
-function snapshotListener(evt) {
-	if (evt.origin.substr(0,28) == "https://secure.sitemorse.com") {
-		var iframe = document.getElementById("sitemorse_preview_iframe");
-		evt.source.postMessage("OK", evt.origin);
-		setTimeout(function() {
-			if (window.location.href != evt.data) {
-				window.location = evt.data;
-			} else {
-				jQuery("#darkcover").trigger("click");
-			}
-		}, 1000);
-	}
+function showSCI() {
+	window.open(sitemorseSCI["url"], "_blank");
+	jQuery("#sciloading").remove();
 }
-
-if (window.addEventListener) {
-	window.addEventListener("message", snapshotListener, false);
-} else {
-	window.attachEvent("onmessage", snapshotListener);
-}
-

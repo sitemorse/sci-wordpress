@@ -101,6 +101,9 @@ class Sitemorse_SCI_Public {
 			"/Sitemorse-SCI/includes/js/scicommon.js", array('jquery'));
 			wp_register_script('sitemorse-sci', plugins_url() .
 			"/Sitemorse-SCI/public/js/sci.js", array('jquery'));
+			wp_register_script( "sitemorse-sciiframe", plugins_url() .
+				"/Sitemorse-SCI/includes/js/sciiframe.js", array( 'jquery' ));
+			wp_enqueue_script('sitemorse-sciiframe');
 			wp_enqueue_script('sitemorse-scicommon');
 			wp_enqueue_script('sitemorse-sci');
 		}
