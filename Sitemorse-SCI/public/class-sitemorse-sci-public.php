@@ -115,7 +115,9 @@ class Sitemorse_SCI_Public {
 		$base_img = plugins_url() . "/Sitemorse-SCI/includes/images/";
 		echo <<<CONTENT
 <script type='text/javascript'>
-	sitemorseSCI["baseImgPath"] = "$base_img";
+	if (typeof sitemorseSCI !== 'undefined') {
+		sitemorseSCI["baseImgPath"] = "$base_img";
+	}
 </script>
 CONTENT;
 

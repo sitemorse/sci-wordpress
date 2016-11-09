@@ -118,7 +118,8 @@
   border-collapse:collapse;
   border-left:2px solid #F0F0F0;
   border-right:2px solid #F0F0F0;
-	color:#555555;
+  color:#555555;
+  margin-bottom: 12px;
 }
 #sciConfirm .prioritiesTable th, #sciConfirm .prioritiesTable td{
   border:1px solid #DDDDDD;
@@ -129,7 +130,7 @@
 	line-height: 1.8em;
 }
 #sciConfirm #sciConfirmPublish {
-  background: #F26D6B;
+  background: #869DB9;
 	margin-right:492px;
 }
 .sciConfirmPriorityIcon{

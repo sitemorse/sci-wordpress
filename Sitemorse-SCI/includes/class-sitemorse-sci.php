@@ -804,7 +804,7 @@ function sitemorse_dashboard_task_posts( $args ) {
 	);
 
 	/**
-	 * Filter the query arguments used for the Recent Posts widget.
+	 * Filter the query arguments used for the Recent tasks widget.
 	 *
 	 * @since 4.2.0
 	 *
@@ -918,6 +918,7 @@ function is_checked($id) {
 }
 
 function has_licence_in_header() {
+	return True;
 	return $GLOBALS["sitemorse_sci"]["licence"] ==
 		substr(get_option("sitemorse_licence_key")["text_string"], 0, 8);
 }
@@ -943,7 +944,7 @@ function sitemorse_mc_title($title) {
 	if (is_admin()) return $title;
 	$cmsedit = get_option( 'home' ) .
 		"/wp-admin/post.php?post=" . get_the_ID() . "&action=edit";
-	$magic = "<!--sitemorse:content ignore='none'" . 
+	$magic = "<!--sitemorse:content ignore='none'" .
 		" description='" . htmlspecialchars($title . " Title") . "'" .
 		" cmsedit='" . htmlspecialchars($cmsedit) . "' " .
 		sitemorse_get_author_long_email() . " -->";
@@ -1160,8 +1161,13 @@ CONTENT;
 		}
 	} else {
 		echo '<script type="text/javascript">' .
-'	sci_finished("' . $url . '");' .
+'  sci_finished("' . $url . '");' .
 '</script>';
+		if (isset($_GET["closeLoading"])) {
+		echo '<script type="text/javascript">' .
+'  close_loading();' .
+'</script>';
+		}
 	}
 	if ($error) {
 		$pattern = "/\message '(.*?)\'/";
@@ -1171,6 +1177,8 @@ CONTENT;
 		echo '<p><strong>SCI Error:</strong> ' . $error . '</p>';
 	}
 }
+
+
 function sitemorse_latest_scan() {
 	$SM_URL = "https://secure.sitemorse.com/sci-api.json" .
 		"?op=last_scan&licence_key=%s&url=%s";

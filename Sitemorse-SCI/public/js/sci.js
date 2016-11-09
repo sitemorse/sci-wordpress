@@ -18,18 +18,3 @@
  * You should have received a copy of the GNU General Public License
  * along with Sitemorse SCI.  If not, see <http://www.gnu.org/licenses/>.
 **/
-
-function loadSCIPreview(admin_url) {
-	jQuery("<iframe>", {
-		id: "sitemorse_iframe",
-		name: "sitemorse_iframe",
-		frameborder: 0
-	}).attr('src',admin_url).height(0).width(0).css("position", "absolute")
-		.appendTo("body");
-
-	var oldtarget = jQuery("#post-preview").attr("target");
-	jQuery("#post-preview").attr("target", "sitemorse_iframe");
-	jQuery("#post-preview").trigger("click");
-	jQuery("#post-preview").attr("target", oldtarget);
-	jQuery("#sciloading").show();
-}

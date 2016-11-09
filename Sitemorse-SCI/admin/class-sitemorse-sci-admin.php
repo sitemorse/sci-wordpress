@@ -354,11 +354,13 @@ CONTENT;
 	 */
 	public function add_admin_pages() {
 
-		add_menu_page( 'Sitemorse Redirect', 'Sitemorse Redirect', 'administrator',
+		add_menu_page( 'Sitemorse Redirect', 'Sitemorse Redirect',
+			get_option("sitemorse_user_permission"),
 			'sitemorse_redirect_page', 'sitemorse_redirect' );
 		add_menu_page( 'Sitemorse Connection', 'Sitemorse Connection', 'administrator',
 			'sitemorse_conn_test_page', 'sitemorse_conn_test' );
-		add_menu_page( 'Sitemorse Results', 'Sitemorse Results', 'administrator',
+		add_menu_page( 'Sitemorse Results', 'Sitemorse Results',
+			get_option("sitemorse_user_permission"),
 			'sitemorse_latest_scan_page', 'sitemorse_latest_scan',
 			$icon_url=sm_image_url("sm-rondel-plain.png") );
 		remove_menu_page( 'sitemorse_redirect_page' );
@@ -388,7 +390,7 @@ CONTENT;
 			$hide_menu = ( strlen( $_SERVER['QUERY_STRING'] ) ? '&' : '?') . 'sitemorseSCI';
 			$current_url = get_option( 'home' ) . $_SERVER["REQUEST_URI"];
 			$admin_url = admin_url( 'admin.php?page=sitemorse_redirect_page' ) .
-				'&url=' . urlencode( $current_url . $hide_menu );
+				'&url=' . urlencode( $current_url . $hide_menu ) . "&closeLoading";
 			$sm_logo_src = sm_image_url("sm-icon-dark.gif");
 			$sm_logo_src_mo = sm_image_url("sm-icon-darkblue.gif");
 			$args = array(
@@ -406,7 +408,6 @@ CONTENT;
 				'meta'  => array(
 					'mouseenter' => 'jQuery("#sm_adminbar_icon").attr("src", "' .
 						$sm_logo_src_mo .'");',
-					#'onclick' => 'window.open("' . $admin_url . '", "_blank");'
 					'onclick' => 'loadSCIPreview("' . $admin_url . '");'
 				)
 			);

@@ -27,14 +27,16 @@ function setParentSCI(results) { //sci in iframe, configure parent
 }
 
 function iframe_preview_redirect(url) {
-	if (parent.top.jQuery("#sci-post-preview").length) {
+	if (parent.top.jQuery("#sci-post-preview").length)
 		window.location.replace(url);
-	}
 }
 
 function sci_finished(sci_url) {
 	parent.sitemorseSCI["url"] = sci_url;
-	if (parent.sitemorseSCI["showSCI"]){
+	if (parent.sitemorseSCI["showSCI"])
 		showSCI();
-	}
+}
+
+function close_loading() {
+	jQuery("#darkcover", parent.document).remove();
 }
