@@ -141,15 +141,15 @@ function publishSCI(results) {
 					"<td>" + p[num].message + " (" + num + ") </td></tr>";
 			}
 			table += "<tr><td style='text-align:center;'>" + results.result.totals.wcag2 + "</td>" +
-				"<td>Accessibility Total</td></tr>";
+				"<td>Accessibility Issues</td></tr>";
 			table += "<tr><td style='text-align:center;'>" + results.result.totals.code + "</td>" +
-				"<td>Code Quality Total</td></tr>";
+				"<td>Code Quality Issues</td></tr>";
 			table += "<tr><td style='text-align:center;'>" + results.result.totals.function + "</td>" +
-				"<td>Function Total</td></tr>";
+				"<td>Function Issues</td></tr>";
 			table += "<tr><td style='text-align:center;'>" + results.result.totals.brand + "</td>" +
-				"<td>Brand Total</td></tr>";
+				"<td>Brand Issues</td></tr>";
 			table += "<tr><td style='text-align:center;'>" + results.result.totals.spelling + "</td>" +
-				"<td>Spelling Total</td></tr>";
+				"<td>Spelling Issues</td></tr>";
 			table += "</table>";
 			jQuery(table).appendTo("#sciConfirm");
 			jQuery("<button id='sciConfirmAssessment'>View Assessment</Button>"
