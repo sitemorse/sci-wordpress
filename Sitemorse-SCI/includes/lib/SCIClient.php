@@ -143,7 +143,7 @@ class SCIClient {
       "view" => $view,
       "extendedResponse" => $this->extendedReponse,
       "screenshot" => true,
-      #"testContent" => true,
+      "testContent" => true,
       "cookies" => $this->cookies
     ));
     $this->fsendall($sock, strlen($jsonreq) . self::CRLF . $jsonreq .

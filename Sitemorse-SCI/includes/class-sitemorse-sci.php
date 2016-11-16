@@ -918,7 +918,6 @@ function is_checked($id) {
 }
 
 function has_licence_in_header() {
-	return True;
 	return $GLOBALS["sitemorse_sci"]["licence"] ==
 		substr(get_option("sitemorse_licence_key")["text_string"], 0, 8);
 }
