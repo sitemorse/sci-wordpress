@@ -59,59 +59,111 @@
 .termsList{list-style:decimal;}
 .termsList li{margin:16px 0 6px 18px; line-height:1.2em;}
 .sitemorse_score {
-    display: block;
-    width: 100px;
-    height: 100px;
-    color: #FFF;
-    text-align: center;
-    border-radius: 55px;
-    border: 5px solid #FFF;
+	display: block;
+	width: 100px;
+	height: 100px;
+	color: #FFF;
+	text-align: center;
+	border-radius: 55px;
+	border: 5px solid #FFF;
 }
 .sitemorse_score div{
-    margin: 19px auto;
-    letter-spacing: -0.1em;
+	margin: 19px auto;
+	letter-spacing: -0.1em;
 }
 .sitemorse_score .first {
-    font-size: 46px;
+	font-size: 46px;
 }
 .sitemorse_score .last {
-    font-size: 15px;
+	font-size: 15px;
 }
 .sitemorse_score.good {
-    background-color: #33cd99;
+	background-color: #33cd99;
 }
 .sitemorse_score.medium {
-    background-color: #ff923c;
+	background-color: #ff923c;
 }
 .sitemorse_score.poor {
-    background-color: #ee736d;
+	background-color: #ee736d;
 }
 
-#sciConfirm{
-  position: absolute;
-	top: 25%;
-	left: 50%;
-	width: 764px;
-	margin-left: -382px;
+#sciLoading {
+  height:210px; width:956px;
+  position: absolute; top: 25%; left: 43%;
+  margin-left:-420px; margin-top: 45px;
   border-radius:12px;
-	padding-bottom: 1px;
-	text-align:left;
-	font-size: 14px;
-  background-color:white;}
+  background:url("images/sci-loading.gif") no-repeat;
+}
+#darkcover{position:fixed; top:0; left:0;
+  background-repeat:no-repeat;
+  background-position:99% 40px;
+  background-color:rgb(25,25,25); z-index:9999;
+  background-color:rgba(25,25,25,0.7); height:100%; width:100%;}
+#sciConfirm{
+	height:210px; width:956px;
+	position: absolute; top: 25%; left: 43%;
+	margin-left:-420px; margin-top: 45px;
+	border-radius:12px;
+	background:url("images/sm-assessment-complete.png") no-repeat;
+}
+#sciSnapshot{
+	cursor:pointer;
+	position: absolute;width:825px; height:160px;
+}
+#sciPublish{
+	cursor:pointer;
+	position: absolute; left:826px; width:130px; height:160px;
+}
+#sciConfirm .passIcon, #sciConfirm .failIcon{
+	position: absolute;
+	top:82px; left:100px;
+	height:18px; width:18px; font-size:12px;
+	background-color:#33cd99;
+	border-radius:50%;
+	color:white;
+	text-align: center;
+}
+#sciConfirm .brandIcon{
+	left:214px;
+}
+#sciConfirm .phoneIcon{
+	left:328px;
+}
+#sciConfirm .codequalityIcon{
+	left:443px;
+}
+#sciConfirm .seoIcon{
+	left:556px;
+}
+#sciConfirm .performanceIcon{
+	left:670px;
+}
+#sciConfirm .spellingIcon{
+	left:784px;
+}
+#sciConfirm .passIcon:before{
+	content:'\2714';
+}
+#sciConfirm .failIcon:before{
+	content:'\2716';
+}
+#sciConfirm .failIcon{
+	background-color:#ee736d;
+}
 #sciConfirm h2{color:white; text-align:left;
-  background:#889DB8 url("images/icon/sitemorse-blue.png") no-repeat 9px;
-  padding:16px 16px 16px 46px; margin-top:0; margin-bottom:0;
-  border-top-left-radius:12px;
-  border-top-right-radius:12px;}
+	background:#889DB8 url("images/icon/sitemorse-blue.png") no-repeat 9px;
+	padding:16px 16px 16px 46px; margin-top:0; margin-bottom:0;
+	border-top-left-radius:12px;
+	border-top-right-radius:12px;}
 #sciConfirm ul, #sciConfirm p{margin:18px;}
 #sciConfirm ul li, #sciConfirm p{font-weight: bold;}
 #sciConfirm button {
-  border: none;
-  margin: 8px;
-  padding: 9px;
-  color: white;
-  border-radius: 6px;
-  cursor: pointer;
+	border: none;
+	margin: 8px;
+	padding: 9px;
+	color: white;
+	border-radius: 6px;
+	cursor: pointer;
 }
 #sciConfirm .prioritiesTable{
   width:100%;

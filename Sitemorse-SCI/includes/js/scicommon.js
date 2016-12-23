@@ -32,7 +32,9 @@ function loadSCIPreview(admin_url) {
 		jQuery("#darkcover").toggle();
 	}).appendTo("body");
 	jQuery("<div>", {
-		id:	"sciloading"
+		id:	"sciLoading"
+	}).click(function(e) {
+	  e.stopPropagation();
 	}).appendTo("#darkcover");
 
 	jQuery("<div>", {
@@ -52,35 +54,14 @@ function loadSCIPreview(admin_url) {
 			name: "sitemorse_iframe",
 			frameborder: 0
 		}).height(0).width(0).appendTo("#sitemorse_iframe_container");
-
 		var oldtarget = jQuery("#post-preview").attr("target");
 		jQuery("#post-preview").attr("target", "sitemorse_iframe");
 		jQuery("#post-preview").trigger("click");
 		jQuery("#post-preview").attr("target", oldtarget);
-		jQuery("#sciloading").show();
+		jQuery("#sciLoading").show();
 	}
 }
 
-function getPriorities(results) {
-	var priorities = [];
-	var p = results.result.priorities;
-	for (var key in p) {
-		if (p[key].total) {
-			var diags = p[key].diagnostics;
-			for (var diag in diags) {
-				var msg = "(" + diags[diag].total + ") " + diags[diag].category
-					+ ": " + diags[diag].title;
-				priorities.push(msg);
-			}
-		}
-	}
-	p = results.result.telnumbers;
-	for (var num in p) {
-		var msg = "(" + p[num].occurrences + ") " + p[num].message + ": " + num;
-		priorities.push(msg);
-	}
-	return priorities.slice(0, 20);
-}
 
 function showSCI() {
 	var wp = window;
@@ -90,79 +71,55 @@ function showSCI() {
 
 
 function publishSCI(results) {
-	var priorities;
-	if (results == "error") priorities = "error";
-	else priorities = getPriorities(results);
-	if (!priorities.length) {
-		jQuery("#darkcover").remove();
+	jQuery("#sciLoading").remove();
+	jQuery("<div>", {
+		id: "sciConfirm"
+	}).click(function(e) {
+	  e.stopPropagation();
+	}).appendTo("#darkcover");
+	jQuery("<h2>Sitemorse Assessment</h2>").appendTo("#sciConfirm");
+	jQuery("<img class='sciMinorCancel' src='" + sitemorseSCI["baseImgPath"] + "form-close.png' />"
+		).click(function() {
+			jQuery("#darkcover").toggle();
+		}).appendTo("#sciConfirm");
+	jQuery("<div id='sciSnapshot'></div>").appendTo("#sciConfirm");
+	jQuery("<div id='sciPublish'></div>").appendTo("#sciConfirm");
+	jQuery("#sciPublish").click(function(e) {
+		jQuery("#publish").trigger("click");
+	});
+	if (results == "error") {
+		jQuery("#sciSnapshot").css("background-color", "white");
+		jQuery("<p>The Sitemorse SCI Server could not be contacted." +
+		" Article may have issues. Publish anyway?</p>"
+			).appendTo("#sciSnapshot");
+		return;
+	}
+	jQuery("#sciSnapshot").click(function(e) {
+		showSCI();
+	});
+	var total = results.result.totals;
+	var score = results.result.scores;
+	var klasses = {"access": total.wcag2?"fail":"pass", "brand":total.brand?"fail":"pass",
+		"telnumbers": Object.keys(results.result.telnumbers).length?"fail":"pass",
+		"quality": total.quality?"fail":"pass", "seo": score.metadata.score<3?"fail":"pass",
+		"performance": score.performance.score<3?"fail":"pass",
+		"spelling": total.spelling?"fail":"pass",};
+	jQuery("<span class='" + klasses.access + "Icon accessIcon'></span>").appendTo("#sciSnapshot");
+	jQuery("<span class='" + klasses.brand + "Icon brandIcon'></span>").appendTo("#sciSnapshot");
+	jQuery("<span class='" + klasses.telnumbers + "Icon phoneIcon'></span>").appendTo("#sciSnapshot");
+	jQuery("<span class='" + klasses.quality + "Icon codequalityIcon'></span>").appendTo("#sciSnapshot");
+	jQuery("<span class='" + klasses.seo + "Icon seoIcon'></span>").appendTo("#sciSnapshot");
+	jQuery("<span class='" + klasses.performance + "Icon performanceIcon'></span>").appendTo("#sciSnapshot");
+	jQuery("<span class='" + klasses.spelling + "Icon spellingIcon'></span>").appendTo("#sciSnapshot");
+	if (klasses["access"] == "pass" && klasses["brand"] == "pass" && klasses["telnumbers"]
+		&& klasses["quality"] == "pass" && klasses["spelling"] == "pass") {
 		jQuery("#publish").trigger("click");
 	} else {
-		jQuery("#sciloading").remove();
-		jQuery("<div>", {
-			id: "sciConfirm"
-		}).click(function(e) {
-		  e.stopPropagation();
-		}).appendTo("#darkcover");
-		jQuery("<h2>Sitemorse Assessment</h2>").appendTo("#sciConfirm");
-		jQuery("<img class='sciMinorCancel' src='" + sitemorseSCI["baseImgPath"] + "form-close.png' />"
-			).click(function() {
-				jQuery("#darkcover").toggle();
-			}).appendTo("#sciConfirm");
-		if (priorities == "error") {
-			jQuery("<p>The Sitemorse SCI Server could not be contacted." +
-			" Article may have issues. Publish anyway?</p>"
-				).appendTo("#sciConfirm");
-			jQuery("<button id='sciConfirmPublish'>Publish</Button>"
-				).click(function() {
-					jQuery("#sciConfirm").remove();
-					jQuery("#publish").trigger("click");
-				}).appendTo("#sciConfirm");
-		} else {
-			if (sitemorseSCI["preventPublish"]) {
-				jQuery("<h3>&nbsp;Could not publish, priority issues</h3>"
-					).appendTo("#sciConfirm");
-			}
-			var table = "<table class='prioritiesTable'>" +
-			"<tr><th style='width:100px; text-align:center;'>Occurences</th><th>Issue</th></tr>";
-			var p = results.result.priorities;
-			for (var key in p) {
-				if (!p[key].total) {
-					continue;
-				}
-				var diags = p[key].diagnostics;
-				for (var diag in diags) {
-					table += "<tr><td style='text-align:center;'>" + diags[diag].total + "</td>" +
-						"<td>" + diags[diag].category + " (" + diags[diag].title + ")</td></tr>";
-				}
-			}
-			var p = results.result.telnumbers;
-			for (var num in p) {
-				table += "<tr><td style='text-align:center;'>" + p[num].occurrences + "</td>" +
-					"<td>" + p[num].message + " (" + num + ") </td></tr>";
-			}
-			table += "<tr><td style='text-align:center;'>" + results.result.totals.wcag2 + "</td>" +
-				"<td>Accessibility Issues</td></tr>";
-			table += "<tr><td style='text-align:center;'>" + results.result.totals.code + "</td>" +
-				"<td>Code Quality Issues</td></tr>";
-			table += "<tr><td style='text-align:center;'>" + results.result.totals.function + "</td>" +
-				"<td>Function Issues</td></tr>";
-			table += "<tr><td style='text-align:center;'>" + results.result.totals.brand + "</td>" +
-				"<td>Brand Issues</td></tr>";
-			table += "<tr><td style='text-align:center;'>" + results.result.totals.spelling + "</td>" +
-				"<td>Spelling Issues</td></tr>";
-			table += "</table>";
-			jQuery(table).appendTo("#sciConfirm");
-			jQuery("<button id='sciConfirmAssessment'>View Assessment</Button>"
-				).click(function() {
-					showSCI();
-				}).appendTo("#sciConfirm");
-			if (!sitemorseSCI["preventPublish"]) {
-				jQuery("<button id='sciConfirmPublish'>Publish</Button>"
-					).click(function() {
-						jQuery("#sciConfirm").remove();
-						jQuery("#publish").trigger("click");
-					}).appendTo("#sciConfirm");
-			}
+		if (sitemorseSCI["preventPublish"]) {
+			jQuery("#sciPublish").off('click');
+			jQuery("#sciPublish").click(function(e) {
+				alert("Publishing is prevented: Priority Issues");
+			});
 		}
 	}
 }
