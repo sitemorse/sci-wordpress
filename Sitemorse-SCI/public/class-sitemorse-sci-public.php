@@ -81,11 +81,9 @@ class Sitemorse_SCI_Public {
 	 */
 	public function enqueue_styles() {
 
-		if (current_user_can(get_option("sitemorse_user_permission"))) {
-			wp_register_style( 'scipublic', plugins_url('Sitemorse-SCI') .
-				'/includes/css/scipublic.css', array(), null, 'all' );
-			wp_enqueue_style( 'scipublic' );
-		}
+		wp_register_style( 'scipublic', plugins_url('Sitemorse-SCI') .
+			'/includes/css/scipublic.css', array(), null, 'all' );
+		wp_enqueue_style( 'scipublic' );
 
 	}
 
@@ -96,17 +94,15 @@ class Sitemorse_SCI_Public {
 	 */
 	public function enqueue_scripts() {
 
-		if (current_user_can(get_option("sitemorse_user_permission"))) {
-			wp_register_script('sitemorse-scicommon', plugins_url() .
-			"/Sitemorse-SCI/includes/js/scicommon.js", array('jquery'));
-			wp_register_script('sitemorse-sci', plugins_url() .
-			"/Sitemorse-SCI/public/js/sci.js", array('jquery'));
-			wp_register_script( "sitemorse-sciiframe", plugins_url() .
-				"/Sitemorse-SCI/includes/js/sciiframe.js", array( 'jquery' ));
-			wp_enqueue_script('sitemorse-sciiframe');
-			wp_enqueue_script('sitemorse-scicommon');
-			wp_enqueue_script('sitemorse-sci');
-		}
+		wp_register_script('sitemorse-scicommon', plugins_url() .
+		"/Sitemorse-SCI/includes/js/scicommon.js", array('jquery'));
+		wp_register_script('sitemorse-sci', plugins_url() .
+		"/Sitemorse-SCI/public/js/sci.js", array('jquery'));
+		wp_register_script( "sitemorse-sciiframe", plugins_url() .
+			"/Sitemorse-SCI/includes/js/sciiframe.js", array( 'jquery' ));
+		wp_enqueue_script('sitemorse-sciiframe');
+		wp_enqueue_script('sitemorse-scicommon');
+		wp_enqueue_script('sitemorse-sci');
 
 	}
 

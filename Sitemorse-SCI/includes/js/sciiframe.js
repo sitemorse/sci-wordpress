@@ -20,23 +20,21 @@
 **/
 
 function setParentSCI(results) { //sci in iframe, configure parent
-	if (!parent.sitemorseSCI["intoIframe"]) return;
-	if (parent.sitemorseSCI["publish"]) {
-		parent.publishSCI(results);
-	}
+	//if (!parent.sitemorseSCI["intoIframe"]) return;
+	parent.publishSCI(results);
 }
 
-function iframe_preview_redirect(url) {
+function iframePreviewRedirect(url) {
 	if (parent.top.jQuery("#sci-post-preview").length)
 		window.location.replace(url);
 }
 
-function sci_finished(sci_url) {
+function sciFinished(sci_url) {
 	parent.sitemorseSCI["url"] = sci_url;
 	if (parent.sitemorseSCI["showSCI"])
 		showSCI();
 }
 
-function close_loading() {
+function closeLoading() {
 	jQuery("#darkcover", parent.document).remove();
 }

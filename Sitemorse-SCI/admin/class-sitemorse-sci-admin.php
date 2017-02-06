@@ -235,27 +235,22 @@ CONTENT;
 			'sitemorse_conn_section' );
 
 		$this->register_settings( 'sitemorse_option_group', array(
-			'sitemorse_licence_key', 'sitemorse_preview', 'sitemorse_user_permission',
+			'sitemorse_licence_key',
 			'sitemorse_post', 'sitemorse_ssl', 'sitemorse_marked', 'sitemorse_hostnames',
 			'sitemorse_proxy', 'sitemorse_sci_host', 'sitemorse_sci_port',
 			'sitemorse_sci_ssl_port', 'sitemorse_headers', 'sitemorse_query',
-			'sitemorse_page_list', 'sitemorse_author', 'sitemorse_publish',
+			'sitemorse_page_list', 'sitemorse_author',
 			'sitemorse_demo_mode',
 			'sitemorse_marked_the_excerpt', 'sitemorse_marked_get_the_excerpt',
 			'sitemorse_marked_the_content', 'sitemorse_marked_get_the_content',
-			'sitemorse_marked_the_title', 'sitemorse_marked_post_thumbnail' ) );
+			'sitemorse_marked_the_title', 'sitemorse_marked_post_thumbnail',
+			'sitemorse_publish_permission') );
 
 		$this->add_settings_fields( array(
 			array( 'sitemorse_licence_key', 'Licence Keys',
 				array( $this->elem, 'licence_key_field' ) ),
-			array( 'sitemorse_preview', 'Enable Scanner',
-				array( $this->elem, 'preview_field' ) ),
-			array( 'sitemorse_user_permission', 'User Permission',
-				array( $this->elem, 'user_permission_field' ) ),
-			array( 'sitemorse_publish', 'Prevent publishing content with issues?',
-				array( $this->elem, 'checkbox_field' ),
-				array( 'id' => 'sitemorse_publish',
-				'default' => 'off', 'class' => 'markedDisable' ) ),
+			array( 'sitemorse_publish_permission', 'Allow Publishing of Pages with Issues',
+				array( $this->elem, 'publish_permission_field' ) ),
 			array( 'sitemorse_hostnames', 'Additional Hostnames',
 				array( $this->elem, 'text_field' ),
 				array( 'id' => 'sitemorse_hostnames', 'desc' =>
@@ -355,13 +350,11 @@ CONTENT;
 	public function add_admin_pages() {
 
 		add_menu_page( 'Sitemorse Redirect', 'Sitemorse Redirect',
-			get_option("sitemorse_user_permission"),
-			'sitemorse_redirect_page', 'sitemorse_redirect' );
+			'edit_pages', 'sitemorse_redirect_page', 'sitemorse_redirect' );
 		add_menu_page( 'Sitemorse Connection', 'Sitemorse Connection', 'administrator',
 			'sitemorse_conn_test_page', 'sitemorse_conn_test' );
 		add_menu_page( 'Sitemorse Results', 'Sitemorse Results',
-			get_option("sitemorse_user_permission"),
-			'sitemorse_latest_scan_page', 'sitemorse_latest_scan',
+			'edit_pages', 'sitemorse_latest_scan_page', 'sitemorse_latest_scan',
 			$icon_url=sm_image_url("sm-rondel-plain.png") );
 		remove_menu_page( 'sitemorse_redirect_page' );
 		remove_menu_page( 'sitemorse_conn_test_page' );
@@ -377,42 +370,34 @@ CONTENT;
 	 */
 	public function sci_link( $wp_admin_bar ) {
 
-		if ( is_admin() ) {
+		if ( is_admin() || (!current_user_can("edit_pages")) ) {
 			return;
 		}
-		if ( !current_user_can( get_option( 'sitemorse_user_permission' ) ) ) {
-			return;
-		}
-		if ( get_option( 'sitemorse_preview' ) == 'everywhere'
-			|| ( get_option( 'sitemorse_preview' ) == 'preview' && is_preview() )
-			|| ( get_option( 'sitemorse_preview' ) == 'edit_preview' && is_preview()
-			) ) {
-			$hide_menu = ( strlen( $_SERVER['QUERY_STRING'] ) ? '&' : '?') . 'sitemorseSCI';
-			$current_url = get_option( 'home' ) . $_SERVER["REQUEST_URI"];
-			$admin_url = admin_url( 'admin.php?page=sitemorse_redirect_page' ) .
-				'&url=' . urlencode( $current_url . $hide_menu ) . "&closeLoading";
-			$sm_logo_src = sm_image_url("sm-icon-dark.gif");
-			$sm_logo_src_mo = sm_image_url("sm-icon-darkblue.gif");
-			$args = array(
-				'id' => 'sitemorse_sci_link',
-				"title" => "<script type='text/javascript'>jQuery(function() {
-	jQuery('#wp-admin-bar-sitemorse_sci_link').hover(
-  function() {
-    jQuery('#sm_adminbar_icon').attr('src', '$sm_logo_src_mo');
-  }, function() {
-    jQuery('#sm_adminbar_icon').attr('src', '$sm_logo_src');
-  });
+		$hide_menu = ( strlen( $_SERVER['QUERY_STRING'] ) ? '&' : '?') . 'sitemorseSCI';
+		$current_url = get_option( 'home' ) . $_SERVER["REQUEST_URI"];
+		$admin_url = admin_url( 'admin.php?page=sitemorse_redirect_page' ) .
+			'&url=' . urlencode( $current_url . $hide_menu ) . "&closeLoading";
+		$sm_logo_src = sm_image_url("sm-icon-dark.gif");
+		$sm_logo_src_mo = sm_image_url("sm-icon-darkblue.gif");
+		$args = array(
+			'id' => 'sitemorse_sci_link',
+			"title" => "<script type='text/javascript'>jQuery(function() {
+jQuery('#wp-admin-bar-sitemorse_sci_link').hover(
+function() {
+	jQuery('#sm_adminbar_icon').attr('src', '$sm_logo_src_mo');
+}, function() {
+	jQuery('#sm_adminbar_icon').attr('src', '$sm_logo_src');
+});
 });</script>
-	<img id='sm_adminbar_icon' src='$sm_logo_src' />&nbsp; Sitemorse",
-				'href'  => '#',
-				'meta'  => array(
-					'mouseenter' => 'jQuery("#sm_adminbar_icon").attr("src", "' .
-						$sm_logo_src_mo .'");',
-					'onclick' => 'loadSCIPreview("' . $admin_url . '");'
-				)
-			);
-			$wp_admin_bar->add_node($args);
-		}
+<img id='sm_adminbar_icon' src='$sm_logo_src' />&nbsp; Sitemorse",
+			'href'  => '#',
+			'meta'  => array(
+				'mouseenter' => 'jQuery("#sm_adminbar_icon").attr("src", "' .
+					$sm_logo_src_mo .'");',
+				'onclick' => 'loadSCIPreview("' . $admin_url . '");'
+			)
+		);
+		$wp_admin_bar->add_node($args);
 
 	}
 
@@ -422,12 +407,12 @@ CONTENT;
 	 * @since    1.0.0
 	 */
 	public function set_admin_globals() {
-
-		if ( $this->is_checked( 'sitemorse_marked' )
-			&& $this->is_checked( 'sitemorse_publish' ) ) {
-			$prevent_publish = 'true';
-		} else {
-			$prevent_publish = 'false';
+		$prevent_publish = "true";
+		foreach (get_option('sitemorse_publish_permission') as $role => $v) {
+			if (current_user_can( $role )) {
+			  $prevent_publish = "false";
+				break;
+			}
 		}
 		$base_img = plugins_url() . "/Sitemorse-SCI/includes/images/";
 		echo <<<CONTENT
@@ -532,48 +517,30 @@ CONTENT;
 
 	}
 
-	public function preview_field() {
+	public function publish_permission_field() {
 
-		$options = get_option('sitemorse_preview');
-		$everywhere_selected = '';
-		$edit_preview_selected = '';
-		$preview_selected = '';
-		$edit_selected = '';
-		if ($options == 'everywhere') $everywhere_selected = 'selected';
-		elseif ($options == 'edit_preview') $edit_preview_selected = 'selected';
-		elseif ($options == 'preview') $preview_selected = 'selected';
-		elseif ($options == 'edit') $edit_selected = 'selected';
-		echo <<<CONTENT
-<select id="sitemorse_preview" name="sitemorse_preview">
-	<option value="everywhere" $everywhere_selected>Everywhere</option>
-	<option value="edit_preview" $edit_preview_selected>Edit &amp; Preview sections</option>
-	<option value="preview" $preview_selected>Preview Only</option>
-	<option value="edit" $edit_selected>Edit Only</option>
-</select>
-<br />
-<p style='font-size:0.8em; font-style: italic;'>Where in Wordpress to allow Sitemorse SCI testing</p>
-CONTENT;
-
-	}
-
-	public function user_permission_field() {
-
-		$options = get_option('sitemorse_user_permission');
-		$admin_selected = 'selected';
-		$editor_selected = '';
-		if ($options == 'edit_pages') {
-			$admin_selected = '';
-			$editor_selected = 'selected';
+	$options = get_option('sitemorse_publish_permission');
+	$result = "";
+	$op = "<ul>";
+	foreach (get_editable_roles() as $role_name => $role_info){
+		if ($role_name == "administrator") {
+			$op .= '<li>' .
+'<input type="hidden" name="sitemorse_publish_permission[' . $role_name . ']" value="on" />' .
+'<input type="checkbox" name="sitemorse_publish_admin" checked disabled="disabled" />' .
+'<label for="sitemorse_publish_admin"> &nbsp;Administrator</label></li>';
+			continue;
 		}
-		echo <<<CONTENT
-<select id="sitemorse_user_permission"
-	name="sitemorse_user_permission">
-	<option value="administrator" $admin_selected>Administrator</option>
-	<option value="edit_pages" $editor_selected>Editor</option>
-</select>
-<br />
-<p style='font-size:0.8em; font-style: italic;'>The permissions needed to run the SCI. Defaults to Administrator.</p>
-CONTENT;
+		$checked = "";
+		if (array_key_exists($role_name, $options)) $checked = "checked";
+		$op .= '<li>' .
+'<input name="sitemorse_publish_permission[' . $role_name . ']"' .
+' type="checkbox" ' . $checked . ' /> &nbsp;' .
+'<label for="sitemorse_publish_permission[' . $role_name . ']">' . ucfirst($role_name) . "</label>" .
+'</li>';
+	}
+	$op .= "</ul>";
+	echo $op;
+	echo "<p style='font-size:0.8em; font-style: italic;'>These roles can publish pages, even with SCI issues</p>";
 
 	}
 

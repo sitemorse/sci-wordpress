@@ -40,8 +40,12 @@ function loadSCIPreview(admin_url) {
 	jQuery("<div>", {
 		id: "sitemorse_iframe_container",
 	}).appendTo("#darkcover");
+	jQuery("#sciLoading").show();
 
 	if (typeof admin_url !== 'undefined') { //called from top menu
+		sitemorseSCI["intoIframe"] = false;
+		sitemorseSCI["publish"] = false;
+		sitemorseSCI["showSCI"] = false;
 		jQuery("<iframe>", {
 			id: "sitemorse_iframe",
 			name: "sitemorse_iframe",
@@ -58,7 +62,9 @@ function loadSCIPreview(admin_url) {
 		jQuery("#post-preview").attr("target", "sitemorse_iframe");
 		jQuery("#post-preview").trigger("click");
 		jQuery("#post-preview").attr("target", oldtarget);
-		jQuery("#sciLoading").show();
+	}
+	if (sitemorseSCI["publish"] == false) {
+		jQuery("#sciLoading").css("width", "825px").css("left", "47%");
 	}
 }
 
@@ -77,7 +83,10 @@ function publishSCI(results) {
 	}).click(function(e) {
 	  e.stopPropagation();
 	}).appendTo("#darkcover");
-	jQuery("<h2>Sitemorse Assessment</h2>").appendTo("#sciConfirm");
+	if (sitemorseSCI["publish"] == false) {
+		jQuery("#sciConfirm").css("width", "825px").css("left", "47%");
+	}
+	jQuery("<h2>Page Assessment Completed - Click Icons to View</h2>").appendTo("#sciConfirm");
 	jQuery("<img class='sciMinorCancel' src='" + sitemorseSCI["baseImgPath"] + "form-close.png' />"
 		).click(function() {
 			jQuery("#darkcover").toggle();

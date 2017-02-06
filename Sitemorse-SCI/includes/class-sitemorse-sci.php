@@ -600,13 +600,11 @@ function get_sci_admin_url($postID, $current_url=null) {
 
 add_action("wp_head", "sci_admin_redirect");
 function sci_admin_redirect() {
-	if (!current_user_can(get_option("sitemorse_user_permission")))
-		return;
 	if (is_preview()) {
 		$admin_url = get_sci_admin_url(get_the_ID());
 		echo <<<CONTENT
 <script type='text/javascript'>
-	iframe_preview_redirect('${admin_url}');
+	iframePreviewRedirect('${admin_url}');
 </script>
 CONTENT;
 	}
@@ -1103,8 +1101,7 @@ function sitemorse_priority_issues($results) {
 }
 
 function sitemorse_redirect() {
-	if (!current_user_can(get_option("sitemorse_user_permission"))
-		|| !isset($_GET["url"]))
+	if ( !isset($_GET["url"]) )
 		return;
 	$preview_url = $_GET["url"];
 	$args = sci_args($preview_url);
@@ -1160,13 +1157,8 @@ CONTENT;
 		}
 	} else {
 		echo '<script type="text/javascript">' .
-'  sci_finished("' . $url . '");' .
+'  sciFinished("' . $url . '");' .
 '</script>';
-		if (isset($_GET["closeLoading"])) {
-		echo '<script type="text/javascript">' .
-'  close_loading();' .
-'</script>';
-		}
 	}
 	if ($error) {
 		$pattern = "/\message '(.*?)\'/";

@@ -24,16 +24,16 @@ jQuery(function() {
 jQuery( "input[value*='sitemorse_data']" ).parent().parent().hide()
 
 jQuery("#sitemorse_verify").click(function() {
-	sitemorseSCI["intoIframe"] = true;
+	sitemorseSCI["intoIframe"] = false;
 	sitemorseSCI["publish"] = true;
 	sitemorseSCI["showSCI"] = false;
 	loadSCIPreview();
 });
 
 jQuery("#sci-post-preview").click(function() {
-	sitemorseSCI["intoIframe"] = true;
+	sitemorseSCI["intoIframe"] = false;
 	sitemorseSCI["publish"] = false;
-	sitemorseSCI["showSCI"] = true;
+	sitemorseSCI["showSCI"] = false;
 	loadSCIPreview();
 });
 
