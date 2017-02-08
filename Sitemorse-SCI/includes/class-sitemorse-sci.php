@@ -997,6 +997,7 @@ if (has_licence_in_header() and has_pageslist_in_header() and
 function sitemorse_get_articles() {
 	$args = array(
 		"sort_column"	=> "post_modified",
+		"number"	=> 100,
 		"sort_order"	 => "DESC"
 	);
 	$results = get_pages($args);
