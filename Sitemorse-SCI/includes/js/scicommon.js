@@ -93,9 +93,7 @@ function publishSCI(results) {
 	}
 	jQuery("<h2>Page Assessment Completed - Click Icons to View</h2>").appendTo("#sciConfirm");
 	jQuery("<img class='sciMinorCancel' src='" + sitemorseSCI["baseImgPath"] + "form-close.png' />"
-		).click(function() {
-			jQuery("#darkcover").toggle();
-		}).appendTo("#sciConfirm");
+		).appendTo("#sciConfirm");
 	jQuery("<div id='sciSnapshot'></div>").appendTo("#sciConfirm");
 	jQuery("<div id='sciPublish'></div>").appendTo("#sciConfirm");
 	jQuery("#sciPublish").click(function(e) {
