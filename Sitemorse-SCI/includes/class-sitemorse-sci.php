@@ -753,7 +753,7 @@ function sitemorse_dashboard_recent_posts( $args ) {
 			if (array_key_exists("url", $sm_data) && $age<28)
 				$sm_link = '<a href="' . $sm_data["url"] . '">' . $sm_link . '</a>';
 			else
-				$sm_link = '<a href="' . $admin_url . '" target="_blank">' . $sm_link . '</a>';
+				$sm_link = '<a href="' . $admin_url . '">' . $sm_link . '</a>';
 			$format = __( '%6$s&nbsp;<span style="min-width:104px; display:inline-block;">' .
 				'%1$s, %2$s</span> %5$s&nbsp;&nbsp;' .
 				'<a style="width:180px; display:inline-block;"' .
@@ -867,7 +867,7 @@ function sitemorse_dashboard_task_posts( $args ) {
 				$sm_link = '<a href="' . $sm_data["url"] . '" style="color:#EA400E;font-size:14px;">' .
 					$sm_link . '</a>';
 			else
-				$sm_link = '<a href="' . $admin_url . '" target="_blank">' . $sm_link . '</a>';
+				$sm_link = '<a href="' . $admin_url . '">' . $sm_link . '</a>';
 			$format = __( '%1$s &nbsp;&nbsp;%2$s %3$s<a style="width:180px; display:inline-block;"' .
 				' href="%4$s">%5$s</a> %6$s %7$s' );
 			echo "<tr><td>" .  get_avatar(get_the_author_meta( 'ID' ), 22, "", get_the_author_meta('login')) .

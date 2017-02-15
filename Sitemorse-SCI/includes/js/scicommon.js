@@ -69,10 +69,16 @@ function loadSCIPreview(admin_url) {
 }
 
 
-function showSCI() {
-	var wp = window;
-	if (!wp.sitemorseSCI["url"]) wp = parent;
-	window.open(wp.sitemorseSCI["url"], "_blank");
+function showSCI($blank="") {
+	if (!sitemorseSCI["url"]) {
+		window.open(parent.sitemorseSCI["url"], "_blank");
+	} else {
+		if ($blank) {
+			window.open(sitemorseSCI["url"], "_blank");
+		} else {
+			window.location.href = sitemorseSCI["url"]
+		}
+	}
 }
 
 
@@ -81,7 +87,6 @@ function publishSCI(results) {
 	jQuery("<div>", {
 		id: "sciConfirm"
 	}).click(function(e) {
-	  e.stopPropagation();
 	}).appendTo("#darkcover");
 	if (sitemorseSCI["publish"] == false) {
 		jQuery("#sciConfirm").css("width", "825px").css("left", "47%");
@@ -104,7 +109,7 @@ function publishSCI(results) {
 		return;
 	}
 	jQuery("#sciSnapshot").click(function(e) {
-		showSCI();
+		showSCI($blank="_blank");
 	});
 	var total = results.result.totals;
 	var score = results.result.scores;
