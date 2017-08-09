@@ -1,7 +1,7 @@
 
 /**
  * Sitemorse SCI Wordpress Plugin
- * Copyright (C) 2016 Sitemorse Ltd
+ * Copyright (C) 2017 Sitemorse (UK Sales) Ltd
  *
  * This file is part of Sitemorse SCI.
  *
