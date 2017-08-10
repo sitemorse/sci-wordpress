@@ -2,7 +2,7 @@
 
 /**
  * Sitemorse SCI Wordpress Plugin
- * Copyright (C) 2016 Sitemorse Ltd
+ * Copyright (C) 2017 Sitemorse (UK Sales) Ltd
  *
  * This file is part of Sitemorse SCI.
  *
@@ -23,7 +23,7 @@
 class SCIClient {
 
   /* PHP implementation of an SCI protocol client.
-     v1.0 (c) Sitemorse Ltd 2011
+     v1.0 (c) Sitemorse (UK Sales) Ltd 2011
   */
 
   const SCI_DEFAULT_SERVER = "sci.sitemorse.com";

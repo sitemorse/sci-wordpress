@@ -2,7 +2,7 @@
 
 /**
  * Sitemorse SCI Wordpress Plugin
- * Copyright (C) 2016 Sitemorse Ltd
+ * Copyright (C) 2016 Sitemorse (UK Sales) Ltd
  *
  * This file is part of Sitemorse SCI.
  *
@@ -39,7 +39,7 @@
  *                    tests and metrics before your pages are published, to ensure pages fully
  *                    conform to standards.
  * Version:           1.0.0
- * Author:            Sitemorse Ltd
+ * Author:            Sitemorse (UK Sales) Ltd
  * Author URI:        https://sitemorse.com/wordpress-sci
  * Text Domain:       sitemorse-sci
  * Domain Path:       /languages

@@ -2,7 +2,7 @@
 
 /**
  * Sitemorse SCI Wordpress Plugin
- * Copyright (C) 2016 Sitemorse Ltd
+ * Copyright (C) 2016 Sitemorse (UK Sales) Ltd
  *
  * This file is part of Sitemorse SCI.
  *
@@ -43,7 +43,7 @@
  * @since      1.0.0
  * @package    Sitemorse_SCI
  * @subpackage Sitemorse_SCI/includes
- * @author     Sitemorse Ltd
+ * @author     Sitemorse (UK Sales) Ltd
  */
 class Sitemorse_SCI_i18n {
 
