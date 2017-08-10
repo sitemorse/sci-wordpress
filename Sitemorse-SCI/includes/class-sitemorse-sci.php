@@ -775,15 +775,17 @@ function sitemorse_dashboard_recent_posts( $args ) {
 }
 
 function sitemorse_dashboard_tasks() {
-	echo '<div id="activity-widget">';
+	echo '<div id="sitemorse-activity-widget">';
 
 	$recent_posts = sitemorse_dashboard_task_posts( array(
 		'max'     => 25,
 		'status'  => 'publish',
 		'order'   => 'DESC',
 		'title'   => __( '' ),
-		'id'      => 'published-posts',
+		'id'      => 'sitemorse-tasks',
 	) );
+
+	echo '</div>';
 }
 
 function sitemorse_dashboard_task_posts( $args ) {
