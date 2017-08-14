@@ -282,6 +282,12 @@ class Sitemorse_SCI {
 /*																												 */
 /***********************************************************/
 
+if (array_key_exists('preview', $_GET)) { #Emojis conflict with plugin
+	remove_action('wp_head', 'print_emoji_detection_script', 7);
+	remove_action('wp_print_styles', 'print_emoji_styles');
+	remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
+	remove_action( 'admin_print_styles', 'print_emoji_styles' );
+}
 
 function sitemorse_post_submit_meta_box( $post, $args = array() ) {
 		global $action;
@@ -625,7 +631,6 @@ CONTENT;
 
 add_action("publish_post", "sm_publish_meta");
 add_action("publish_page", "sm_publish_meta");
-
 add_action('wp_dashboard_setup', 'remove_dashboard_widgets' );
 function remove_dashboard_widgets() {
 	global $wp_meta_boxes;
