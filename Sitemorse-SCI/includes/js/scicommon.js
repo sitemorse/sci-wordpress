@@ -113,7 +113,7 @@ function publishSCI(results) {
 	var score = results.result.scores;
 	var klasses = {"access": total.wcag2?"fail":"pass", "brand":total.brand?"fail":"pass",
 		"telnumbers": Object.keys(results.result.telnumbers).length?"fail":"pass",
-		"quality": total.quality?"fail":"pass", "seo": score.metadata.score<3?"fail":"pass",
+		"quality": total.quality?"fail":"pass", "seo": total.seo?"fail":"pass",
 		"performance": score.performance.score<3?"fail":"pass",
 		"spelling": total.spelling?"fail":"pass",};
 	jQuery("<span class='" + klasses.access + "Icon accessIcon'></span>").appendTo("#sciSnapshot");
@@ -124,7 +124,8 @@ function publishSCI(results) {
 	jQuery("<span class='" + klasses.performance + "Icon performanceIcon'></span>").appendTo("#sciSnapshot");
 	jQuery("<span class='" + klasses.spelling + "Icon spellingIcon'></span>").appendTo("#sciSnapshot");
 	if (klasses["access"] == "pass" && klasses["brand"] == "pass" && klasses["telnumbers"]
-		&& klasses["quality"] == "pass" && klasses["spelling"] == "pass") {
+		&& klasses["quality"] == "pass" && klasses["spelling"] == "pass"
+		&& klasses["seo"] == "pass") {
 		jQuery("#publish").trigger("click");
 	} else {
 		if (sitemorseSCI["preventPublish"]) {

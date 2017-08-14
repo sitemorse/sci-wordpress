@@ -20,7 +20,6 @@
 **/
 
 function setParentSCI(results) { //sci in iframe, configure parent
-	//if (!parent.sitemorseSCI["intoIframe"]) return;
 	parent.publishSCI(results);
 }
 
