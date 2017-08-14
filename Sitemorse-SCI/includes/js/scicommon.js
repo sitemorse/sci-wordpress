@@ -123,7 +123,8 @@ function publishSCI(results) {
 	jQuery("<span class='" + klasses.seo + "Icon seoIcon'></span>").appendTo("#sciSnapshot");
 	jQuery("<span class='" + klasses.performance + "Icon performanceIcon'></span>").appendTo("#sciSnapshot");
 	jQuery("<span class='" + klasses.spelling + "Icon spellingIcon'></span>").appendTo("#sciSnapshot");
-	if (klasses["access"] == "pass" && klasses["brand"] == "pass" && klasses["telnumbers"]
+	if (sitemorseSCI["publish"] == true &&
+		klasses["access"] == "pass" && klasses["brand"] == "pass" && klasses["telnumbers"]
 		&& klasses["quality"] == "pass" && klasses["spelling"] == "pass"
 		&& klasses["seo"] == "pass") {
 		jQuery("#publish").trigger("click");
