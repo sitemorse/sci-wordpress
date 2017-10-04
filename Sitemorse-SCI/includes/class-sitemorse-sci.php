@@ -1126,8 +1126,14 @@ function sitemorse_redirect() {
 	}
 	$url = "";
 	$error = "";
+	if (array_key_exists("postID", $_GET)) {
+		$editurl = htmlspecialchars_decode( get_edit_post_link( $_GET["postID"] ) );
+	} else {
+		$editurl = "";
+	}
 	try {
-		$r = @$sci->performTest($preview_url, $hostnames);
+		$r = @$sci->performTest($preview_url, $hostnames=$hostnames,
+			$view="snapshot-page", $editurl=$editurl);
 	} catch(Exception $e) {
 		$sm_logo_src = sm_image_url("sm-icon-gray.gif");
 		?>

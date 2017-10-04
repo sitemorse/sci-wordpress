@@ -133,11 +133,11 @@ class SCIClient {
     return $sock;
   }
 
-  private function sendArgs($url, $hostNames, $view, $sock) {
+  private function sendArgs($url, $hostNames, $view, $sock, $editurl="") {
     if (!in_array(parse_url($url, PHP_URL_HOST), $hostNames))
       array_push($hostNames, parse_url($url, PHP_URL_HOST));
     $this->hostNames = $hostNames;
-    $jsonreq = json_encode(array(
+    $args = array(
       "url" => $url,
       "hostNames" => $this->hostNames,
       "view" => $view,
@@ -145,7 +145,9 @@ class SCIClient {
       "screenshot" => true,
       "testContent" => true,
       "cookies" => $this->cookies
-    ));
+    );
+    if ($editurl) $args["editing"] = $editurl;
+    $jsonreq = json_encode($args);
     $this->fsendall($sock, strlen($jsonreq) . self::CRLF . $jsonreq .
       self::CRLF);
     $line = $this->fgetline($sock);
@@ -156,10 +158,10 @@ class SCIClient {
       throw new Exception($line);
   }
 
-  function performTest($url, $hostNames=[], $view="snapshot-page") {
+  function performTest($url, $hostNames=[], $view="snapshot-page", $editurl="") {
     try {
       $sock = $this->establishConnection();
-      $this->sendArgs($url, $hostNames, $view, $sock);
+      $this->sendArgs($url, $hostNames, $view, $sock, $editurl=$editurl);
       $results = $this->ProxyRequests($sock, $this->hostNames);
     } catch(Exception $e) {
       throw new Exception($e);
