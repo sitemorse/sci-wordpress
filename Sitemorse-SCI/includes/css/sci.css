@@ -87,8 +87,6 @@
 	background-color: #ee736d;
 }
 
-#sitemorse_preview_sectionid{margin-top:20px;}
-
 #sitemorse_title{display: inline-block !important;}
 .inside .scibuttons{text-align:center;}
 .inside .scibutton{display:inline-block; margin:12px 30px 4px 30px; cursor:pointer;}
@@ -100,3 +98,14 @@
 .sitemorse_connection_pass{background-image:url("images/icon/tick.png");}
 .sitemorse_connection_load{background-image:url("images/icon/loading.gif");}
 .sitemorse_connection_fail{background-image:url("images/icon/save.png");}
+
+.sitemorse-debug-button {}
+#sitemorse-debug-dump {
+	background-color: #FDFDFD;
+	color: #222222;
+	font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
+	border: 1px solid #222222;
+	width: 700px;
+	overflow: scroll;
+	height:330px;
+}

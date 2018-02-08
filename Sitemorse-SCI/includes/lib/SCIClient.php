@@ -43,9 +43,11 @@ class SCIClient {
   private $postAllowed;
 
   function __construct($licenceKey, $args=[]) {
-    $this->debug = false;
-    $this->debugStream = "";
     $this->licenceKey = $licenceKey;
+    $this->debug = false;
+    if (array_key_exists("debug", $args))
+      $this->debug = $args["debug"];
+    $this->debugData = "";
     $this->extendedReponse = true;
     if (array_key_exists("extendedReponse", $args))
       $this->extendedReponse = $args["extendedReponse"];
@@ -81,8 +83,8 @@ class SCIClient {
 
   function establishConnection() {
     if ($this->proxyHostname) {
-      $sock = fsockopen($this->proxyHostname,
-        $this->proxyPort, $errno, $errstr, self::SCI_CONNECT_TIMEOUT);
+      $sock = $this->fsockopen($this->proxyHostname,
+        $this->proxyPort, 0, 0, self::SCI_CONNECT_TIMEOUT);
       if (!$sock)
         throw new Exception("Error connecting to proxy " .
           $this->proxyHostname . ":" . $this->proxyPort . " " . $errstr);
@@ -107,12 +109,12 @@ class SCIClient {
         stream_socket_enable_crypto($sock, true,
           STREAM_CRYPTO_METHOD_SSLv3_CLIENT);
     } else {
-      $sock = @fsockopen(($this->serverSecure ? "ssl://" : "tcp://") .
-        $this->serverHostname, $this->serverPort, $errno, $errstr,
-        self::SCI_CONNECT_TIMEOUT);
+      $sock = $this->fsockopen(($this->serverSecure ? "ssl://" : "tcp://") .
+        $this->serverHostname, $this->serverPort, 0, 0,
+          self::SCI_CONNECT_TIMEOUT);
       if (!$sock)
         throw new Exception("Error connecting to " . $this->serverHostname .
-          ":" . $this->serverPort . " " . $errstr);
+          ":" . $this->serverPort . " ");
     }
     stream_set_timeout($sock, self::SCI_READ_TIMEOUT);
     $line = $this->fgetline($sock);
@@ -134,6 +136,7 @@ class SCIClient {
   }
 
   private function sendArgs($url, $hostNames, $view, $sock, $editurl="") {
+    #printf("%s, %s, %s, %s, %s", $url, $hostNames, $view, $sock, $editurl);
     if (!in_array(parse_url($url, PHP_URL_HOST), $hostNames))
       array_push($hostNames, parse_url($url, PHP_URL_HOST));
     $this->hostNames = $hostNames;
@@ -166,25 +169,33 @@ class SCIClient {
     } catch(Exception $e) {
       throw new Exception($e);
     }
-    $results["debug"] = false;
     if ($this->debug) {
       $results["debug"] = true;
-      $results["debugStream"] = $this->debugStream;
+      $results["debugData"] = $this->debugData;
     }
     return $results;
   }
 
-  private function fgetline($handle , $length=1024, $ending=self::CRLF) {
-    $line = stream_get_line($handle , $length, $ending);
+  private function fsockopen($hostname, $port, $errno, $errstr, $timeout) {
     if ($this->debug) {
-      $this->debugStream .= "\nFGET: $line";
+      $this->debugData .= sprintf("socket open ('%s', %d, %d, %d, %d)\n",
+        $hostname, $port, $errno, $errstr, $timeout);
+    }
+    return fsockopen($hostname, $port, $errno, $errstr, $timeout);
+  }
+
+  private function fgetline($handle, $length=1024, $ending=self::CRLF) {
+    $line = stream_get_line($handle, $length, $ending);
+    if ($this->debug) {
+      $this->debugData .= "server: $line\n";
     }
     return $line;
   }
 
-  private function fsendall($fp, $s) {
+  private function fsendall($fp, $s, $log_message=false) {
     if ($this->debug) {
-      $this->debugStream .= "\nFSEND: $s";
+      if ($log_message) $this->debugData .= "client: $log_message\n";
+      else $this->debugData .= "client: $s\n";
     }
     $written = fwrite($fp, $s, strlen($s));
     if ($written === false)
@@ -313,8 +324,8 @@ class SCIClient {
       $transport_protocol = "tcp://";
       if ($proto == "https")
         $transport_protocol = "ssl://";
-      $web = fsockopen($transport_protocol . $host,
-        $port, $errno, $errstr, self::SCI_CONNECT_TIMEOUT);
+      $web = $this->fsockopen($transport_protocol . $host,
+        $port, 0, 0, self::SCI_CONNECT_TIMEOUT);
       if ($web === false) {
         $err_msg = "";
         if ($errno === 0)
@@ -365,7 +376,7 @@ class SCIClient {
       }
       $this->fsendall($web, self::CRLF);
       if ($data !== null) {
-        $this->fsendall($web, $data);
+        $this->fsendall($web, $data, "SEND DATA");
       }
       /*
        * Wait for the status response line, then read the headers
@@ -425,7 +436,7 @@ class SCIClient {
       $this->fsendall($sock, "X-SCI-TotalTime: " . $xscTotalTime .
         self::CRLF);
       $this->fsendall($sock, self::CRLF);
-      $this->fsendall($sock, $data);
+      $this->fsendall($sock, $data, "SEND DATA");
     }
   }
 

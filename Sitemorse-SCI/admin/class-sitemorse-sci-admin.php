@@ -218,7 +218,7 @@ CONTENT;
 
 		add_settings_section( 'sitemorse_settings', '<img src="' .
 			sm_image_url("sm-icon-gray.gif") . '" />&nbsp;Main Settings',
-			function() { echo '<div><p>General Settings</p>'; }, 'sitemorse_settings_section' );
+			function() { echo '<div>'; }, 'sitemorse_settings_section' );
 
 		add_settings_section( 'sitemorse_settings', '<img src="' .
 			sm_image_url("sm-icon-gray.gif") . '" />&nbsp;Marked Content Settings',
@@ -230,8 +230,8 @@ CONTENT;
 			'sitemorse_marked_filters_section' );
 
 		add_settings_section( 'sitemorse_settings', '<img src="' .
-			sm_image_url("sm-icon-gray.gif") . '" />&nbsp;Advanced Settings',
-			function() { echo '<div><p>Publishing options</p>'; },
+			sm_image_url("sm-icon-gray.gif") . '" />&nbsp;Connection Settings',
+			function() { echo '<div>'; },
 			'sitemorse_conn_section' );
 
 		$this->register_settings( 'sitemorse_option_group', array(
@@ -244,7 +244,8 @@ CONTENT;
 			'sitemorse_marked_the_excerpt', 'sitemorse_marked_get_the_excerpt',
 			'sitemorse_marked_the_content', 'sitemorse_marked_get_the_content',
 			'sitemorse_marked_the_title', 'sitemorse_marked_post_thumbnail',
-			'sitemorse_publish_permission') );
+			'sitemorse_publish_permission',
+			'sitemorse_test_connection', 'sitemorse_debug_mode') );
 
 		$this->add_settings_fields( array(
 			array( 'sitemorse_licence_key', 'Licence Keys',
@@ -336,7 +337,17 @@ CONTENT;
 				} ),
 			array("sitemorse_query", "Additional Query String",
 				array( $this->elem, 'text_field' ),
-				array( 'id' => 'sitemorse_query' ) )
+				array( 'id' => 'sitemorse_query' ) ),
+			array("sitemorse_debug_mode", "Debug Mode",
+				array( $this->elem, 'checkbox_field' ),
+				array( 'id' => 'sitemorse_debug_mode',
+					'desc' => 'Debug connection issues', 'default' => 'off' ) ),
+			array("sitemorse_test_connection", "Connection status",
+				array( $this->elem, 'button_field' ),
+				array( 'value' => 'Test', 'function' => '
+if (confirm("Make sure you save changes before testing the connection. Testing may take a while, do you want to start now?")) {
+  window.location = "' . admin_url('admin.php?page=sitemorse_conn_test_page') . '";
+}') ),
 			), 'sitemorse_conn_section' );
 
 	}
@@ -471,6 +482,18 @@ class Sitemorse_SCI_Admin_Elements {
 
 	}
 
+/**
+	 * Shorthand function for generic button
+	 *
+	 * @since    1.0.0
+	 */
+	public function button_field( $args ) {
+		$function = $args['function'];
+		$value = $args['value'];
+		echo "<input type='button' onclick='" . $function
+		. "' value='" . $value . "' />";
+	}
+
 	/**
 	 * Shorthand function for generic checkbox
 	 *
@@ -503,16 +526,7 @@ class Sitemorse_SCI_Admin_Elements {
 		echo <<<CONTENT
 <input id='sitemorse_licence_key' size='40' type='text'
  name='sitemorse_licence_key[text_string]'
- onchange='test_connection("$conn_url", this);'
- onkeyup='test_connection("$conn_url", this);'
  value='{$options['text_string']}' />
-<script type='text/javascript'>
-window.onload = function(e) {
-	test_connection("$conn_url",
-		document.getElementById("sitemorse_licence_key"));
-}
-</script>
-<div id='sitemorse_connection_icon' />
 CONTENT;
 
 	}

@@ -1040,15 +1040,66 @@ function sitemorse_get_articles() {
 /***********************************************************/
 
 function sitemorse_conn_test() {
-	$error = "";
-	try {
-		$sci = new SCIClient($_GET["key"]);
-		$r = $sci->establishConnection();
-	} catch(Exception $e) {
-		$error = $e->getMessage();
+	echo "<h1>Sitemorse debug mode</h1>";
+	if (count($_POST)) {
+		echo <<< SUB
+<p>You have been redirected here because SCI is in debug mode.
+To enable SCI assessments disable debug mode</p>
+SUB;
 	}
-	if ($error) echo "<h1 id='sitemorseConnStatus'>fail</h1>";
-	else echo "<h1 id='sitemorseConnStatus'>pass</h1>";
+
+	echo "<h2>Sitemorse options</h2>";
+	echo "<textarea id='sitemorse-debug-dump'>";
+	echo print_r(wp_load_alloptions()) . "\n";
+	echo "</textarea>";
+
+	$editurl = "";
+	$urls = array(trailingslashit(get_home_url()),
+		"https://sitemorse.com/");
+	$args = sci_args($urls[0]);
+	$args["debug"] = true;
+
+	if (count($_POST)) {
+		$urls = array($_POST['url']);
+		$editurl = $_POST['editurl'];
+		$args = json_decode(base64_decode($_POST['args']), $assoc=true);
+	}
+
+	$hostnames_option = explode(",",
+		get_option("sitemorse_hostnames")["text_string"]);
+	$hostnames = [];
+	foreach ($hostnames_option as $hostname) {
+		$p = parse_url(trim($hostname), PHP_URL_HOST);
+		if ($p)
+			array_push($hostnames, $p);
+	}
+
+	$sci = new SCIClient(get_option("sitemorse_licence_key")["text_string"],
+		$args=$args);
+
+	foreach ($urls as $url) {
+		$error = "";
+		try {
+			$r = @$sci->performTest($url, $hostnames=$hostnames,
+				$view="snapshot-page", $editurl=$editurl);
+		} catch(Exception $e) {
+			$error = $e->getMessage();
+		}
+		if ($error) {
+			echo "<h2>" . $url . " <span style='color:darkred;'>Fail</span></h2>";
+			echo "<br />";
+			echo "<pre id='sitemorse-debug-dump'>";
+			echo $error . "\n";
+			echo "</pre>";
+		} else {
+			echo "<h2>" . $url . " <span style='color:darkgreen;'>OK</span></h2>";
+			echo "<h2><a href='" . $r['url'] . "' target='_blank'>SCI assessment link</a></h2>";
+			echo "<br />";
+			echo "<textarea id='sitemorse-debug-dump'>";
+			echo htmlspecialchars($r['debugData'], ENT_IGNORE) . "\n";
+			echo "</textarea>";
+		}
+	}
 }
 
 function sci_args($preview_url) {
@@ -1113,9 +1164,7 @@ function sitemorse_redirect() {
 		return;
 	$preview_url = $_GET["url"];
 	$args = sci_args($preview_url);
-	echo "<h2>Redirecting to Sitemorse...</h2>";
-	$sci = new SCIClient(get_option("sitemorse_licence_key")["text_string"],
-		$args=$args);
+
 	$hostnames_option = explode(",",
 		get_option("sitemorse_hostnames")["text_string"]);
 	$hostnames = [];
@@ -1124,13 +1173,35 @@ function sitemorse_redirect() {
 		if ($p)
 			array_push($hostnames, $p);
 	}
-	$url = "";
-	$error = "";
+
 	if (array_key_exists("postID", $_GET)) {
 		$editurl = htmlspecialchars_decode( get_edit_post_link( $_GET["postID"] ) );
 	} else {
 		$editurl = "";
 	}
+
+	$debug_mode = isset(get_option("sitemorse_debug_mode")["text_string"]) &&
+		get_option("sitemorse_debug_mode")["text_string"] == "on";
+	if ($debug_mode) {
+		$debug_page = admin_url("admin.php?page=sitemorse_conn_test_page");
+		$args["debug"] = true;
+		$input_args = base64_encode(json_encode($args));
+		echo <<< FORM
+<script type="text/javascript">
+var f = jQuery("<form id='sitemorse_debug_form' action='{$debug_page}' method='post'>");
+f.append(jQuery("<input type='hidden' name='url' value='{$preview_url}' /> "));
+f.append(jQuery("<input type='hidden' name='editurl' value='{$editurl}' /> "));
+f.append(jQuery("<input type='hidden' name='args' value='{$input_args}' /> "));
+f.appendTo(parent.top.jQuery("body"));
+parent.top.jQuery("#sitemorse_debug_form").submit();
+</script>
+FORM;
+		return;
+	}
+	$sci = new SCIClient(get_option("sitemorse_licence_key")["text_string"],
+		$args=$args);
+	$url = "";
+	$error = "";
 	try {
 		$r = @$sci->performTest($preview_url, $hostnames=$hostnames,
 			$view="snapshot-page", $editurl=$editurl);
