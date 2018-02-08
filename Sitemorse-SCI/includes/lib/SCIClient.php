@@ -136,7 +136,6 @@ class SCIClient {
   }
 
   private function sendArgs($url, $hostNames, $view, $sock, $editurl="") {
-    #printf("%s, %s, %s, %s, %s", $url, $hostNames, $view, $sock, $editurl);
     if (!in_array(parse_url($url, PHP_URL_HOST), $hostNames))
       array_push($hostNames, parse_url($url, PHP_URL_HOST));
     $this->hostNames = $hostNames;
