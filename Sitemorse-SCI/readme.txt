@@ -43,7 +43,8 @@ before it is published and will give you a chance to fix any issues.
 
 == Testing ===
 Running an assessment on any piece of content will test the full connection. For
-example, 
+example, from the assessment button whilst editing content or the Sitemorse
+button on the admin bar.
 
 If for some reason, the assessment fails to execute, you can test the connection
 from the configuration dialogue. Settings > Sitemorse > Connection Settings,
