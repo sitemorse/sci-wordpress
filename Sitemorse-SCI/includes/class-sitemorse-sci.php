@@ -2,7 +2,7 @@
 
 /**
  * Sitemorse SCI Wordpress Plugin
- * Copyright (C) 2017 Sitemorse (UK Sales) Ltd
+ * Copyright (C) 2018 Sitemorse (UK Sales) Ltd
  *
  * This file is part of Sitemorse SCI.
  *
@@ -23,14 +23,14 @@
 
 /**
  * @package Sitemorse_SCI
- * @version 1.0
+ * @version 1.1
  */
 /*
 Plugin Name: Sitemorse SCI
 Plugin URI: http://sitemorse.com
 Description: The Sitemorse SCI plugin allows you to access Sitemorse tests and metrics before your pages are published, to ensure pages fully conform to standards.
 Author: Sitemorse (UK Sales) Ltd
-Version: 1.0
+Version: 1.1
 */
 
 require "lib/SCIClient.php";
