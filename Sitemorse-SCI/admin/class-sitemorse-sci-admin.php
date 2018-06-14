@@ -381,6 +381,11 @@ if (confirm("Make sure you save changes before testing the connection. Testing m
 	 */
 	public function sci_link( $wp_admin_bar ) {
 
+		if (isset($_GET["sitemorseSCI"])) {
+			show_admin_bar( false );
+			return False;
+		}
+
 		if ( is_admin() || (!current_user_can("edit_pages")) ) {
 			return;
 		}
@@ -432,18 +437,6 @@ function() {
 	sitemorseSCI["baseImgPath"] = "$base_img";
 </script>
 CONTENT;
-
-	}
-
-	/**
-	 * Hide admin bar from SCI scanner
-	 *
-	 * @since     1.0.0
-	 * @return    string    The version number of the plugin.
-	 */
-	public function show_admin_bar() {
-
-		return !isset($_GET["sitemorseSCI"]);
 
 	}
 

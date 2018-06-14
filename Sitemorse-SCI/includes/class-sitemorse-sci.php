@@ -211,7 +211,6 @@ class Sitemorse_SCI {
 		$this->loader->add_action( 'admin_init', $plugin_admin, 'settings_form' );
 		$this->loader->add_action( 'admin_bar_menu', $plugin_admin, 'sci_link', 9999 );
 		$this->loader->add_action( 'admin_head', $plugin_admin, 'set_admin_globals' );
-		$this->loader->add_action( 'show_admin_bar', $plugin_admin, 'show_admin_bar' );
 
 	}
 
