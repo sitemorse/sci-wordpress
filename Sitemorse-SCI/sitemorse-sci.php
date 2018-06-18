@@ -29,7 +29,7 @@
  * that starts the plugin.
  *
  * @link              https://sitemorse.com
- * @since             1.0.0
+ * @since             1.1.0
  * @package           Sitemorse_SCI
  *
  * @wordpress-plugin
@@ -38,7 +38,7 @@
  * Description:       The Sitemorse SCI plugin allows you to access Sitemorse
  *                    tests and metrics before your pages are published, to ensure pages fully
  *                    conform to standards.
- * Version:           1.0.0
+ * Version:           1.1.0
  * Author:            Sitemorse (UK Sales) Ltd
  * Author URI:        https://sitemorse.com/wordpress-sci
  * Text Domain:       sitemorse-sci

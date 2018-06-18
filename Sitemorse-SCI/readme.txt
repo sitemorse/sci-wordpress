@@ -41,8 +41,26 @@ before it is published and will give you a chance to fix any issues.
 5. For further information please contact your Sitemorse representative.
 
 
-== Frequently Asked Questions ==
+== Testing ===
+Running an assessment on any piece of content will test the full connection. For
+example, from the assessment button whilst editing content or the Sitemorse
+button on the admin bar.
 
+If for some reason, the assessment fails to execute, you can test the connection
+from the configuration dialogue. Settings > Sitemorse > Connection Settings,
+click the test button. The test can take a couple of minutes to complete. It
+validate the license key and tests both the home page of sitemorse.com and the 
+home page of the Wordpress instance. The results page shows all the variables 
+for the current connection with the messages that have been passed to and from 
+the Sitemorse SCI servers.
+
+If the configuration test button is successful but for some reason a particular
+content item fails to be assessed, then you can select debug mode. Settings > 
+Sitemorse > Connection Settings Debug Mode check box. This intercepts every 
+assessment and issues debug results in the same way as the test button but for 
+the particular content item.
+
+== Frequently Asked Questions ==
 
 =Can I prevent publishing of content with issues
 Yes, select 'Prevent Publishing' in the settings section.
@@ -82,6 +100,9 @@ over `/tags/4.3/screenshot-1.png`
 
 = 1.0 =
 Initial release.
+
+= 1.1 =
+Test and debug functions.
 
 
 == Upgrade Notice ==
