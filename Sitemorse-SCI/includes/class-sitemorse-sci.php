@@ -36,7 +36,7 @@ Version: 1.1
 require "lib/SCIClient.php";
 
 function sm_image_url($fn) {
-	return plugins_url() . "/Sitemorse-SCI/includes/images/" . $fn;
+	return plugins_url( '/includes/images/', dirname( __FILE__ ) ) . $fn;
 }
 
 function sm_save_meta($post_ID, $priorities, $url) {
@@ -211,6 +211,7 @@ class Sitemorse_SCI {
 		$this->loader->add_action( 'admin_init', $plugin_admin, 'settings_form' );
 		$this->loader->add_action( 'admin_bar_menu', $plugin_admin, 'sci_link', 9999 );
 		$this->loader->add_action( 'admin_head', $plugin_admin, 'set_admin_globals' );
+		$this->loader->add_action( 'show_admin_bar', $plugin_admin, 'show_admin_bar' );
 
 	}
 

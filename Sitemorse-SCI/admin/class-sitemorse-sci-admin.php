@@ -76,10 +76,8 @@ class Sitemorse_SCI_Admin {
 	 */
 	public function enqueue_styles() {
 
-		wp_register_style( 'scipublic', plugins_url('Sitemorse-SCI') .
-			'/includes/css/scipublic.css', array(), null, 'all' );
-		wp_register_style( 'sci', plugins_url('Sitemorse-SCI') .
-			'/includes/css/sci.css', array(), null, 'all' );
+		wp_register_style( 'scipublic', plugins_url( '/includes/css/scipublic.css', dirname( __FILE__ ) ), array(), null, 'all' );
+		wp_register_style( 'sci', plugins_url( '/includes/css/sci.css', dirname( __FILE__ ) ), array(), null, 'all' );
 		wp_enqueue_style( 'scipublic' );
 		wp_enqueue_style( 'sci' );
 
@@ -94,17 +92,13 @@ class Sitemorse_SCI_Admin {
 
 		wp_enqueue_script('jquery-ui-core');
 		wp_enqueue_script('jquery-ui-accordion');
-		wp_register_script("sitemorse-scicommon", plugins_url() .
-			"/Sitemorse-SCI/includes/js/scicommon.js", array( 'jquery' ));
+		wp_register_script("sitemorse-scicommon", plugins_url( '/includes/js/scicommon.js', dirname( __FILE__ ) ), array( 'jquery' ));
 		wp_enqueue_script('sitemorse-scicommon');
-		wp_register_script( "sitemorse-sciiframe", plugins_url() .
-			"/Sitemorse-SCI/includes/js/sciiframe.js", array( 'jquery' ));
+		wp_register_script( "sitemorse-sciiframe", plugins_url( '/includes/js/sciiframe.js', dirname( __FILE__ ) ), array( 'jquery' ));
 		wp_enqueue_script('sitemorse-sciiframe');
-		wp_register_script( "sitemorse-sciadmin", plugins_url() .
-			"/Sitemorse-SCI/admin/js/sciadmin.js", array( 'jquery' ));
+		wp_register_script( "sitemorse-sciadmin", plugins_url( '/admin/js/sciadmin.js', dirname( __FILE__ ) ), array( 'jquery' ));
 		wp_enqueue_script('sitemorse-sciadmin');
-		wp_register_script( "sitemorse-scisettings", plugins_url() .
-			"/Sitemorse-SCI/admin/js/scisettings.js", array( 'jquery' ));
+		wp_register_script( "sitemorse-scisettings", plugins_url( '/admin/js/scisettings.js', dirname( __FILE__ ) ), array( 'jquery' ));
 		wp_enqueue_script('sitemorse-scisettings');
 
 	}
@@ -381,11 +375,6 @@ if (confirm("Make sure you save changes before testing the connection. Testing m
 	 */
 	public function sci_link( $wp_admin_bar ) {
 
-		if (isset($_GET["sitemorseSCI"])) {
-			show_admin_bar( false );
-			return False;
-		}
-
 		if ( is_admin() || (!current_user_can("edit_pages")) ) {
 			return;
 		}
@@ -430,13 +419,25 @@ function() {
 				break;
 			}
 		}
-		$base_img = plugins_url() . "/Sitemorse-SCI/includes/images/";
+		$base_img = plugins_url( '/includes/images/', dirname( __FILE__ ) );
 		echo <<<CONTENT
 <script type='text/javascript'>
 	sitemorseSCI["preventPublish"] = $prevent_publish;
 	sitemorseSCI["baseImgPath"] = "$base_img";
 </script>
 CONTENT;
+
+	}
+
+	/**
+	 * Hide admin bar from SCI scanner
+	 *
+	 * @since     1.0.0
+	 * @return    string    The version number of the plugin.
+	 */
+	public function show_admin_bar() {
+
+		return !isset($_GET["sitemorseSCI"]);
 
 	}
 
