@@ -1,5 +1,5 @@
 === Plugin Name ===
-Contributors: (this should be a list of wordpress.org userid's) XXX
+Contributors: sitemorse, wearesmile
 Donate link: NA
 Tags: sitemorse, accessibility, admin, content
 Requires at least: 3.7
@@ -35,7 +35,7 @@ before it is published and will give you a chance to fix any issues.
 == Installation ==
 
 1. Receive licence key from Sitemorse.
-2. Upload the plugin files to the `/wp-content/plugins/Sitemorse-SCI` directory, or install the plugin through the WordPress plugins screen directly.
+2. Upload the plugin folder to the `/wp-content/plugins/` directory, or install the plugin through the WordPress plugins screen directly.
 3. Activate the plugin through the 'Plugins' screen in WordPress.
 4. Enter the licence key in the Settings->Sitemorse section. Normally other settings can be left with the default values.
 5. For further information please contact your Sitemorse representative.

@@ -81,8 +81,7 @@ class Sitemorse_SCI_Public {
 	 */
 	public function enqueue_styles() {
 
-		wp_register_style( 'scipublic', plugins_url('Sitemorse-SCI') .
-			'/includes/css/scipublic.css', array(), null, 'all' );
+		wp_register_style( 'scipublic', plugins_url( '/includes/css/scipublic.css', dirname( __FILE__ ) ), array(), null, 'all' );
 		wp_enqueue_style( 'scipublic' );
 
 	}
@@ -94,12 +93,9 @@ class Sitemorse_SCI_Public {
 	 */
 	public function enqueue_scripts() {
 
-		wp_register_script('sitemorse-scicommon', plugins_url() .
-		"/Sitemorse-SCI/includes/js/scicommon.js", array('jquery'));
-		wp_register_script('sitemorse-sci', plugins_url() .
-		"/Sitemorse-SCI/public/js/sci.js", array('jquery'));
-		wp_register_script( "sitemorse-sciiframe", plugins_url() .
-			"/Sitemorse-SCI/includes/js/sciiframe.js", array( 'jquery' ));
+		wp_register_script('sitemorse-scicommon', plugins_url( '/includes/js/scicommon.js', dirname( __FILE__ ) ), array('jquery'));
+		wp_register_script('sitemorse-sci', plugins_url( '/public/js/sci.js', dirname( __FILE__ ) ), array('jquery') );
+		wp_register_script( "sitemorse-sciiframe", plugins_url( '/includes/js/sciiframe.js', dirname( __FILE__ ) ), array( 'jquery' ));
 		wp_enqueue_script('sitemorse-sciiframe');
 		wp_enqueue_script('sitemorse-scicommon');
 		wp_enqueue_script('sitemorse-sci');
@@ -108,7 +104,7 @@ class Sitemorse_SCI_Public {
 
 	public function set_globals() {
 
-		$base_img = plugins_url() . "/Sitemorse-SCI/includes/images/";
+		$base_img = plugins_url( '/includes/images/', dirname( __FILE__ ) );
 		echo <<<CONTENT
 <script type='text/javascript'>
 	if (typeof sitemorseSCI !== 'undefined') {
