@@ -40,6 +40,12 @@ before it is published and will give you a chance to fix any issues.
 4. Enter the licence key in the Settings->Sitemorse section. Normally other settings can be left with the default values.
 5. For further information please contact your Sitemorse representative.
 
+== Configuration == 
+
+In Settings > Sitemorse > Main Settings, enter your licence key and select 
+which user roles are allowed to publish content even if it fails Sitemorse
+Priority checks. The default ports, host name, etc should not be changed unless
+advised to do so by Sitemorse.
 
 == Testing ===
 Running an assessment on any piece of content will test the full connection. For
