@@ -162,7 +162,7 @@ CONTENT;
 	 */
 	protected function add_settings_fields( $fields_list, $section ) {
 
-	  $args = array();
+	$args = array();
 		foreach( $fields_list as $fields ) {
 			$var = $fields[0];
 			$name = $fields[1];
