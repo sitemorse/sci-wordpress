@@ -8,11 +8,9 @@
 
 	<!-- Include the WordPress ruleset, with space for exclusions if necessary. -->
 	<rule ref="WordPress-Core">
-	
 	</rule>
 	<rule ref="WordPress-Docs">
-
-	</rule>
+  </rule>
 
 	<rule ref="Squiz.Commenting.FunctionComment.ScalarTypeHintMissing">
 		<severity>0</severity>

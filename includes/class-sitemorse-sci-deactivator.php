@@ -18,9 +18,7 @@
 
  * You should have received a copy of the GNU General Public License
  * along with Sitemorse SCI.  If not, see <http://www.gnu.org/licenses/>.
- **/
-
-/**
+ *
  * Fired during plugin deactivation
  *
  * @link       http://www.sitemorse.com

@@ -1,5 +1,23 @@
 <?php
 /**
+ * Sitemorse SCI Wordpress Plugin
+ * Copyright (C) 2016 Sitemorse (UK Sales) Ltd
+ *
+ * This file is part of Sitemorse SCI.
+ *
+ * Sitemorse SCI is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+
+ * Sitemorse SCI is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+
+ * You should have received a copy of the GNU General Public License
+ * along with Sitemorse SCI.  If not, see <http://www.gnu.org/licenses/>.
+ *
  * The admin-specific functionality of the plugin.
  *
  * @link       http://www.sitemorse.com
@@ -37,8 +55,8 @@ class Sitemorse_SCI_Admin {
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.0.0
-	 * @param      string $plugin_name       The name of this plugin.
-	 * @param      string $version    The version of this plugin.
+	 * @param      string    $plugin_name       The name of this plugin.
+	 * @param      string    $version    The version of this plugin.
 	 */
 	public function __construct( $plugin_name, $version ) {
 
@@ -69,7 +87,6 @@ class Sitemorse_SCI_Admin {
 	 * @since    1.0.0
 	 */
 	public function enqueue_scripts() {
-
 		wp_enqueue_script( 'jquery-ui-core' );
 		wp_enqueue_script( 'jquery-ui-accordion' );
 		wp_register_script( 'sitemorse-scicommon', plugins_url( '/includes/js/scicommon.js', dirname( __FILE__ ) ), array( 'jquery' ) );
@@ -80,7 +97,6 @@ class Sitemorse_SCI_Admin {
 		wp_enqueue_script( 'sitemorse-sciadmin' );
 		wp_register_script( 'sitemorse-scisettings', plugins_url( '/admin/js/scisettings.js', dirname( __FILE__ ) ), array( 'jquery' ) );
 		wp_enqueue_script( 'sitemorse-scisettings' );
-
 	}
 
 	/**
@@ -182,7 +198,6 @@ CONTENT;
 	 * @since    1.0.0
 	 */
 	public function settings_form() {
-
 		add_settings_section(
 			'sitemorse_settings',
 			'',
@@ -636,9 +651,7 @@ CONTENT;
 	 * @return    string    The version number of the plugin.
 	 */
 	public function show_admin_bar() {
-
 		return ! isset( $_GET['sitemorseSCI'] );
-
 	}
 
 }

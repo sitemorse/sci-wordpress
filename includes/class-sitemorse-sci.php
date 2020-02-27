@@ -109,7 +109,6 @@ class Sitemorse_SCI {
 	 * @since		1.0.0
 	 */
 	public function __construct() {
-
 		$this->plugin_name = 'Sitemorse SCI';
 		$this->version = '1.0.0';
 
@@ -183,7 +182,6 @@ class Sitemorse_SCI {
 
 		$plugin_i18n = new Sitemorse_SCI_I18n();
 		$plugin_i18n->set_domain( $this->get_plugin_name() );
-
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
 
 	}
@@ -597,9 +595,8 @@ function get_sci_admin_url($postID, $current_url=null) {
 	return admin_url('admin.php?page=sitemorse_redirect_page') .
 		$postID_url . '&url=' . urlencode($current_url);
 }
-
-
 add_action('wp_head', 'sci_admin_redirect');
+
 function sci_admin_redirect() {
 	if (is_preview()) {
 		$admin_url = get_sci_admin_url(get_the_ID());
@@ -623,7 +620,6 @@ CONTENT;
 /*
 *	 On publish, save the sitemorse status
 */
-
 add_action('publish_post', 'sm_publish_meta');
 add_action('publish_page', 'sm_publish_meta');
 add_action('wp_dashboard_setup', 'remove_dashboard_widgets' );
@@ -1036,7 +1032,7 @@ function sitemorse_get_articles() {
 
 function sitemorse_conn_test() {
 	echo '<h1>Sitemorse debug mode</h1>';
-	if (count($_POST)) {
+	if ( count( $_POST ) ) {
 		echo <<< SUB
 <p>You have been redirected here because SCI is in debug mode.
 To enable SCI assessments disable debug mode</p>
@@ -1062,6 +1058,7 @@ SUB;
 
 	$hostnames_option = explode(',',
 		get_option('sitemorse_hostnames')['text_string']);
+
 	$hostnames = [];
 	foreach ($hostnames_option as $hostname) {
 		$p = parse_url(trim($hostname), PHP_URL_HOST);
@@ -1137,6 +1134,7 @@ function sci_args($preview_url) {
 	$extra_query = get_option('sitemorse_query');
 	if (isset($extra_query['text_string']) && $extra_query['text_string'])
 		$args['extraQuery'] = $extra_query['text_string'];
+
 	return $args;
 }
 

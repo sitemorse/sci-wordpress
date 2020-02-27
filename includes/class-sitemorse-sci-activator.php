@@ -53,6 +53,7 @@ class Sitemorse_SCI_Activator {
 				$sm_data = get_post_meta( get_the_ID(), 'sitemorse_data', true );
 				if ( ! $sm_data ) {
 					add_post_meta( get_the_ID(), 'sitemorse_data', 0 );
+
 				}
 			}
 		}
