@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Sitemorse SCI Wordpress Plugin
+ * Sitemorse SCI WordPress Plugin
  * Copyright (C) 2016 Sitemorse (UK Sales) Ltd
  *
  * This file is part of Sitemorse SCI.
@@ -18,10 +18,7 @@
 
  * You should have received a copy of the GNU General Public License
  * along with Sitemorse SCI.  If not, see <http://www.gnu.org/licenses/>.
-**/
-
-
-/**
+ *
  * Fired during plugin deactivation
  *
  * @link       http://www.sitemorse.com

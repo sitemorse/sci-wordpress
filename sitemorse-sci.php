@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Sitemorse SCI Wordpress Plugin
  * Copyright (C) 2016 Sitemorse (UK Sales) Ltd
@@ -18,9 +17,7 @@
 
  * You should have received a copy of the GNU General Public License
  * along with Sitemorse SCI.  If not, see <http://www.gnu.org/licenses/>.
-**/
-
-/**
+ *
  * Sitemorse SCI bootstrap file
  *
  * This file is read by WordPress to generate the plugin information in the plugin
