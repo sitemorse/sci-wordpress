@@ -88,7 +88,17 @@ Yes, the connection is over SSL
 =Can I connect via a proxy
 Yes, this can be configured in the Advanced Settings section
 
+== License ==
 
+Sitemorse SCI is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+Sitemorse SCI is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
 
 == Screenshots ==
 
@@ -99,8 +109,6 @@ the /assets directory or the directory that contains the stable readme.txt
 directory take precedence. For example, `/assets/screenshot-1.png` would win
 over `/tags/4.3/screenshot-1.png` 
 (or jpg, jpeg, gif). XXX
-
-
 
 == Changelog ==
 

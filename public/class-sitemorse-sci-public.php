@@ -1,26 +1,6 @@
 <?php
-
 /**
- * Sitemorse SCI Wordpress Plugin
- * Copyright (C) 2016 Sitemorse (UK Sales) Ltd
  *
- * This file is part of Sitemorse SCI.
- *
- * Sitemorse SCI is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
-
- * Sitemorse SCI is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
-
- * You should have received a copy of the GNU General Public License
- * along with Sitemorse SCI.  If not, see <http://www.gnu.org/licenses/>.
-**/
-
-/**
  * The public-facing functionality of the plugin.
  *
  * @link       http://www.sitemorse.com
@@ -49,7 +29,7 @@ class Sitemorse_SCI_Public {
 	 * @access   private
 	 * @var      string    $plugin_name    The ID of this plugin.
 	 */
-	private $plugin_name = "Sitemorse SCI";
+	private $plugin_name = 'Sitemorse SCI';
 
 	/**
 	 * The version of this plugin.
@@ -58,19 +38,19 @@ class Sitemorse_SCI_Public {
 	 * @access   private
 	 * @var      string    $version    The current version of this plugin.
 	 */
-	private $version = "1.0.0";
+	private $version = '1.0.0';
 
 	/**
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.0.0
-	 * @param      string    $plugin_name       The name of the plugin.
-	 * @param      string    $version    The version of this plugin.
+	 * @param      string $plugin_name       The name of the plugin.
+	 * @param      string $version    The version of this plugin.
 	 */
 	public function __construct( $plugin_name, $version ) {
 
 		$this->plugin_name = $plugin_name;
-		$this->version = $version;
+		$this->version     = $version;
 
 	}
 
@@ -93,15 +73,20 @@ class Sitemorse_SCI_Public {
 	 */
 	public function enqueue_scripts() {
 
-		wp_register_script('sitemorse-scicommon', plugins_url( '/includes/js/scicommon.js', dirname( __FILE__ ) ), array('jquery'));
-		wp_register_script('sitemorse-sci', plugins_url( '/public/js/sci.js', dirname( __FILE__ ) ), array('jquery') );
-		wp_register_script( "sitemorse-sciiframe", plugins_url( '/includes/js/sciiframe.js', dirname( __FILE__ ) ), array( 'jquery' ));
-		wp_enqueue_script('sitemorse-sciiframe');
-		wp_enqueue_script('sitemorse-scicommon');
-		wp_enqueue_script('sitemorse-sci');
+		wp_register_script( 'sitemorse-scicommon', plugins_url( '/includes/js/scicommon.js', dirname( __FILE__ ) ), array( 'jquery' ) );
+		wp_register_script( 'sitemorse-sci', plugins_url( '/public/js/sci.js', dirname( __FILE__ ) ), array( 'jquery' ) );
+		wp_register_script( 'sitemorse-sciiframe', plugins_url( '/includes/js/sciiframe.js', dirname( __FILE__ ) ), array( 'jquery' ) );
+		wp_enqueue_script( 'sitemorse-sciiframe' );
+		wp_enqueue_script( 'sitemorse-scicommon' );
+		wp_enqueue_script( 'sitemorse-sci' );
 
 	}
 
+	/**
+	 * Register the stylesheets for the public-facing side of the site.
+	 *
+	 * @since    1.0.0
+	 */
 	public function set_globals() {
 
 		$base_img = plugins_url( '/includes/images/', dirname( __FILE__ ) );

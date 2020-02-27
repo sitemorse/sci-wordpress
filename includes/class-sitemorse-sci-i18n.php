@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Sitemorse SCI Wordpress Plugin
+ * Sitemorse SCI WordPress Plugin
  * Copyright (C) 2016 Sitemorse (UK Sales) Ltd
  *
  * This file is part of Sitemorse SCI.
@@ -18,7 +18,7 @@
 
  * You should have received a copy of the GNU General Public License
  * along with Sitemorse SCI.  If not, see <http://www.gnu.org/licenses/>.
-**/
+ **/
 
 
 /**
@@ -75,7 +75,7 @@ class Sitemorse_SCI_i18n {
 	 * Set the domain equal to that of the specified domain.
 	 *
 	 * @since    1.0.0
-	 * @param    string    $domain    The domain that represents the locale of this plugin.
+	 * @param    string $domain    The domain that represents the locale of this plugin.
 	 */
 	public function set_domain( $domain ) {
 		$this->domain = $domain;
