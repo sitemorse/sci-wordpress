@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Sitemorse SCI WordPress Plugin
  * Copyright (C) 2016 Sitemorse (UK Sales) Ltd
@@ -18,10 +17,7 @@
 
  * You should have received a copy of the GNU General Public License
  * along with Sitemorse SCI.  If not, see <http://www.gnu.org/licenses/>.
- **/
-
-
-/**
+ *
  * Fired during plugin activation
  *
  * @link       http://www.sitemorse.com
@@ -44,6 +40,8 @@
 class Sitemorse_SCI_Activator {
 
 	/**
+	 * Run on activate.
+	 *
 	 * @since    1.0.0
 	 */
 	public static function activate() {

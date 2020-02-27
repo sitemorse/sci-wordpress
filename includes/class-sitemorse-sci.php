@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Sitemorse SCI Wordpress Plugin
  * Copyright (C) 2018 Sitemorse (UK Sales) Ltd
@@ -18,24 +17,20 @@
 
  * You should have received a copy of the GNU General Public License
  * along with Sitemorse SCI.  If not, see <http://www.gnu.org/licenses/>.
-**/
-
-
-/**
+ *
  * @package Sitemorse_SCI
  * @version 1.1
+ *
+ * Plugin Name: Sitemorse SCI
+ * Plugin URI: http://sitemorse.com
+ * Description: The Sitemorse SCI plugin allows you to access Sitemorse tests and metrics before your pages are published, to ensure pages fully conform to standards.
+ * Author: Sitemorse (UK Sales) Ltd
+ * Version: 1.1
  */
-/*
-Plugin Name: Sitemorse SCI
-Plugin URI: http://sitemorse.com
-Description: The Sitemorse SCI plugin allows you to access Sitemorse tests and metrics before your pages are published, to ensure pages fully conform to standards.
-Author: Sitemorse (UK Sales) Ltd
-Version: 1.1
-*/
 
-require "lib/SCIClient.php";
+require 'lib/SCIClient.php';
 
-function sm_image_url($fn) {
+function sm_image_url( $fn ) {
 	return plugins_url( '/includes/images/', dirname( __FILE__ ) ) . $fn;
 }
 
@@ -131,7 +126,7 @@ class Sitemorse_SCI {
 	 * Include the following files that make up the plugin:
 	 *
 	 * - Sitemorse_SCI_Loader. Orchestrates the hooks of the plugin.
-	 * - Sitemorse_SCI_i18n. Defines internationalization functionality.
+	 * - Sitemorse_SCI_I18n. Defines internationalization functionality.
 	 * - Sitemorse_SCI_Admin. Defines all hooks for the admin area.
 	 * - Sitemorse_SCI_Public. Defines all hooks for the public side of the site.
 	 *
@@ -177,7 +172,7 @@ class Sitemorse_SCI {
 	/**
 	 * Define the locale for this plugin for internationalization.
 	 *
-	 * Uses the Sitemorse_SCI_i18n class in order to set the domain and to register the hook
+	 * Uses the Sitemorse_SCI_I18n class in order to set the domain and to register the hook
 	 * with WordPress.
 	 *
 	 * @since		1.0.0
@@ -186,7 +181,7 @@ class Sitemorse_SCI {
 	private function set_locale() {
 		return;
 
-		$plugin_i18n = new Sitemorse_SCI_i18n();
+		$plugin_i18n = new Sitemorse_SCI_I18n();
 		$plugin_i18n->set_domain( $this->get_plugin_name() );
 
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
@@ -1028,7 +1023,7 @@ function sitemorse_get_articles() {
 		$jsontext .= "},";
 	}
 	$jsontext = substr_replace($jsontext, "", -1);
-	$jsontext .= "]";
+	$jsontext .= ']';
 	return $jsontext;
 }
 

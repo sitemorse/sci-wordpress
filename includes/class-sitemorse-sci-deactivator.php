@@ -20,7 +20,6 @@
  * along with Sitemorse SCI.  If not, see <http://www.gnu.org/licenses/>.
  **/
 
-
 /**
  * Fired during plugin deactivation
  *

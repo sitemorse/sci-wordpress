@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Sitemorse SCI WordPress Plugin
  * Copyright (C) 2016 Sitemorse (UK Sales) Ltd
@@ -18,10 +17,7 @@
 
  * You should have received a copy of the GNU General Public License
  * along with Sitemorse SCI.  If not, see <http://www.gnu.org/licenses/>.
- **/
-
-
-/**
+ *
  * Define the internationalization functionality
  *
  * Loads and defines the internationalization files for this plugin
@@ -45,7 +41,7 @@
  * @subpackage Sitemorse_SCI/includes
  * @author     Sitemorse (UK Sales) Ltd
  */
-class Sitemorse_SCI_i18n {
+class Sitemorse_SCI_I18n {
 
 	/**
 	 * The domain specified for this plugin.

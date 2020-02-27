@@ -14,7 +14,7 @@
  * Main admin class
  */
 class Sitemorse_SCI_Admin {
-	
+
 	/**
 	 * The ID of this plugin.
 	 *
@@ -86,11 +86,12 @@ class Sitemorse_SCI_Admin {
 	/**
 	 *
 	 * Sitemorse SCI Settings Section
+	 *
+	 * @param int $id The ID from the settings page.
 	 */
-
 	protected function is_checked( $id ) {
 		$chk = get_option( $id );
-		return isset( $chk['text_string'] ) && $chk['text_string'] == 'on';
+		return isset( $chk['text_string'] ) && 'on' == $chk['text_string'];
 	}
 
 	/**
@@ -128,7 +129,9 @@ CONTENT;
 	/**
 	 * Shorthand function to register multiple settings
 	 *
-	 * @since    1.0.0
+	 * @since 1.0.0
+	 * @param string $group A settings group name.
+	 * @param string $settings The name of an option to sanitize and save.
 	 */
 	protected function register_settings( $group, $settings ) {
 
@@ -147,7 +150,9 @@ CONTENT;
 	/**
 	 * Shorthand function to add multiple settings
 	 *
-	 * @since    1.0.0
+	 * @since 1.0.0
+	 * @param array  $fields_list An array of field data.
+	 * @param string $section The slug-name of the section of the settings page in which to show the box.
 	 */
 	protected function add_settings_fields( $fields_list, $section ) {
 
@@ -566,6 +571,7 @@ if (confirm("Make sure you save changes before testing the connection. Testing m
 	 * Add SCI link to the admin bar
 	 *
 	 * @since    1.0.0
+	 * @param array $wp_admin_bar The admin bar.
 	 */
 	public function sci_link( $wp_admin_bar ) {
 
@@ -653,6 +659,7 @@ class Sitemorse_SCI_Admin_Elements {
 	 * Shorthand function for generic text field
 	 *
 	 * @since    1.0.0
+	 * @param array $args An array of args.
 	 */
 	public function text_field( $args ) {
 
@@ -674,6 +681,7 @@ class Sitemorse_SCI_Admin_Elements {
 	 * Shorthand function for generic button
 	 *
 	 * @since    1.0.0
+	 * @param array $args An array of args.
 	 */
 	public function button_field( $args ) {
 		$function = $args['function'];
@@ -686,6 +694,7 @@ class Sitemorse_SCI_Admin_Elements {
 	 * Shorthand function for generic checkbox
 	 *
 	 * @since    1.0.0
+	 * @param array $args An array of args.
 	 */
 	public function checkbox_field( $args ) {
 
@@ -696,7 +705,7 @@ class Sitemorse_SCI_Admin_Elements {
 
 		$option  = get_option( $id, [ 'text_string' => $default ] );
 		$checked = '';
-		if ( isset( $option['text_string'] ) && $option['text_string'] == 'on' ) {
+		if ( isset( $option['text_string'] ) && 'on' == $option['text_string'] ) {
 			$checked = 'checked';
 		}
 		echo "<input id='$id' name='${id}[text_string]' " .
@@ -707,6 +716,11 @@ class Sitemorse_SCI_Admin_Elements {
 
 	}
 
+	/**
+	 * Sitemorse licence key
+	 *
+	 * @since    1.0.0
+	 */
 	public function licence_key_field() {
 
 		$options  = get_option( 'sitemorse_licence_key' );
@@ -719,13 +733,18 @@ CONTENT;
 
 	}
 
+	/**
+	 * Sitemorse permissions
+	 *
+	 * @since    1.0.0
+	 */
 	public function publish_permission_field() {
 
 		$options = get_option( 'sitemorse_publish_permission' );
 		$result  = '';
 		$op      = '<ul>';
 		foreach ( get_editable_roles() as $role_name => $role_info ) {
-			if ( $role_name == 'administrator' ) {
+			if ( 'administrator' == $role_name ) {
 				$op .= '<li>' .
 				'<input type="hidden" name="sitemorse_publish_permission[' . $role_name . ']" value="on" />' .
 				'<input type="checkbox" name="sitemorse_publish_admin" checked disabled="disabled" />' .
