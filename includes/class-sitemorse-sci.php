@@ -34,8 +34,8 @@ function sm_image_url( $fn ) {
 	return plugins_url( '/includes/images/', dirname( __FILE__ ) ) . $fn;
 }
 
-function sm_save_meta($post_ID, $priorities, $url) {
-	if (!$priorities) $status = 1;
+function sm_save_meta( $post_ID, $priorities, $url ) {
+	if ( ! $priorities ) $status = 1;
 	else $status = 0;
 	$sm_data = sm_get_meta($post_ID);
 	$st = '0';
